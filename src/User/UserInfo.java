@@ -1,17 +1,16 @@
 package User;
 
-import java.util.Date;
 
 public class UserInfo {
 	
 	private String nome;
 	private String cpf;
 	private String rg;
-	private Date dataNascimento;
+	private String dataNascimento;
 	private String endereco;
 	private String telefone;	
 	
-	public UserInfo(String nome, String cpf, String rg, Date dataNascimento, String endereco, String telefone){
+	public UserInfo(String nome, String cpf, String rg, String dataNascimento, String endereco, String telefone){
 		this.nome = nome;
 		this.cpf = cpf;
 		this.rg = rg;
@@ -32,7 +31,7 @@ public class UserInfo {
 		return this.rg;
 	}
 	
-	public Date getDataNascimento(){
+	public String getDataNascimento(){
 		return this.dataNascimento;
 	}
 	
@@ -56,7 +55,7 @@ public class UserInfo {
 		this.rg = rg;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

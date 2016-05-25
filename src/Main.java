@@ -2,9 +2,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import User.*;
@@ -35,12 +33,10 @@ public class Main {
 	    String TesteTel = br.readLine();
 		
 	    UserType tipo = UserType.Cliente;
-	    UserType tipoa = UserType.Administrador;
-	    DateFormat format = new SimpleDateFormat("DD.MM.YYYY", Locale.US);
-	    Date date = format.parse(TesteDataNasc);
+	    //UserType tipoa = UserType.Administrador;
 	    
-		Cliente teste = new Cliente(TesteUserID, tipo, TesteEMail, TesteSenha, TesteNome, TesteCPF, TesteRG, date, TesteEnd, TesteTel);
-		Admin testea = new Admin(TesteUserID, tipoa, TesteEMail, TesteSenha, TesteNome, TesteCPF, TesteRG, date, TesteEnd, TesteTel);
+		Cliente teste = new Cliente(TesteUserID, tipo, TesteEMail, TesteSenha, TesteNome, TesteCPF, TesteRG, TesteDataNasc, TesteEnd, TesteTel);
+		//Admin testea = new Admin(TesteUserID, tipoa, TesteEMail, TesteSenha, TesteNome, TesteCPF, TesteRG, TesteDataNasc, TesteEnd, TesteTel);
 		
 		
 	    System.out.println(teste.getUserID());

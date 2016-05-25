@@ -1,7 +1,5 @@
 package User;
 
-import java.util.Date;
-
 public abstract class  Usuario {
 
 	private String userID;
@@ -16,11 +14,11 @@ public abstract class  Usuario {
 	}
 	
 	public Usuario(String userID, UserType userType, String email, String senha,
-					String nome, String cpf, String rg, Date dataNascimento, 
+					String nome, String cpf, String rg, String dataNascimento, 
 					String endereco, String telefone){
 		
 		if(userID == null){
-			System.out.println("Erro: valor inválido.");
+			System.out.println("Erro: valor invï¿½lido.");
 		}
 		else {
 			this.userID = userID;
@@ -30,14 +28,14 @@ public abstract class  Usuario {
 
 	
 		if(email == null){
-			System.out.println("Erro: valor inválido.");
+			System.out.println("Erro: valor invï¿½lido.");
 		}
 		else {
 			this.email = email;
 		}
 		
 		if(senha.length() < 8){
-			System.out.println("Erro: senha inválida.");
+			System.out.println("Erro: senha invï¿½lida.");
 		}
 		else {
 			this.senha = senha;
