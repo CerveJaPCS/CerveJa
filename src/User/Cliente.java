@@ -13,4 +13,8 @@ public class Cliente extends Usuario {
 		super(userID, userType, email, senha, nome, cpf, rg, dataNasc, end, tel);
 	}
 	
+	public Cliente() {
+		this(null, null, null, null, null, null, null, null, null, null);
+	}
+	
 }
