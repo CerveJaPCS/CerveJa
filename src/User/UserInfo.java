@@ -8,11 +8,23 @@ public class UserInfo {
 	private String rg;
 	private String dataNascimento;
 	private String endereco;
-	private String telefone;	
+	private String telefone;
+	public static final int min_length = 2;
+
 	
 	public UserInfo(String nome, String cpf, String rg, String dataNascimento, String endereco, String telefone){
-		this.nome = nome;
-		this.cpf = cpf;
+		if(nome == null || nome.length() < min_length){
+			System.out.println("Erro: valor para nome inválido.");
+		}
+		else{
+			this.nome = nome;	
+		}
+		if(cpf == null || cpf.length()<11){
+			System.out.println("Erro: valor de cpf inválido.");
+		}
+		else{
+			this.cpf = cpf;
+		}
 		this.rg = rg;
 		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;

@@ -1,5 +1,7 @@
 package User;
 
+import java.sql.SQLException;
+
 public abstract class  Usuario {
 
 	private String userID;
@@ -8,17 +10,21 @@ public abstract class  Usuario {
 	private String senha;
 	private Boolean ativo;
 	public UserInfo info;
+	public static final int min_length = 2;
+	public UserDAO userDAO;
+
+
 	
-	public  Usuario() {
-		this(null, null, null, null, null, null, null, null, null, null);
+	public  Usuario(UserDAO userDAO) {
+		this.userDAO = userDAO;
 	}
 	
 	public Usuario(String userID, UserType userType, String email, String senha,
 					String nome, String cpf, String rg, String dataNascimento, 
 					String endereco, String telefone){
 		
-		if(userID == null){
-			System.out.println("Erro: valor inv�lido.");
+		if(userID == null || userID.length() < min_length){
+			System.out.println("Erro: valor para ID inválido.");
 		}
 		else {
 			this.userID = userID;
@@ -27,15 +33,15 @@ public abstract class  Usuario {
 		this.userType = userType;
 
 	
-		if(email == null){
-			System.out.println("Erro: valor inv�lido.");
+		if(email == null || email.length() < min_length){
+			System.out.println("Erro: email inválido.");
 		}
 		else {
 			this.email = email;
 		}
 		
 		if(senha.length() < 8){
-			System.out.println("Erro: senha inv�lida.");
+			System.out.println("Erro: senha inválida.");
 		}
 		else {
 			this.senha = senha;
@@ -93,5 +99,15 @@ public abstract class  Usuario {
 		this.info = info;
 	}
 	
+	public void insertUser() throws SQLException{
+		userDAO.insert(this.info.getNome());
+	}
+	
+	public String verifyUser() throws SQLException{
+		// TODO
+		// Chamar userDAO para verificar a existência do usuário no banco de dados.
 
+		return null;
+	}
+	
 }
