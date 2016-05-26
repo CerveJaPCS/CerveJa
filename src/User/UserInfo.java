@@ -11,6 +11,7 @@ public class UserInfo {
 	private String telefone;
 	public static final int min_length = 2;
 
+	public UserInfo(){}
 	
 	public UserInfo(String nome, String cpf, String rg, String dataNascimento, String endereco, String telefone){
 		if(nome == null || nome.length() < min_length){

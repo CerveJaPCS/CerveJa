@@ -3,20 +3,25 @@ package User;
 import java.sql.*;
 import java.util.Random;
 
+import DAO.MyConnection;
+
 
 public class UserDAO {
 	
-	private static Connection conn = null;
-		
+	private static UserDAO instance = new UserDAO();
+	
 	private String sql;
-
-	public UserDAO(final Connection conn){
-		this.conn = conn;
+	
+	private UserDAO(){}
+	
+	public static UserDAO getInstance(){
+		return instance;
 	}
 	
 	
 	public void insert(String name) throws SQLException {
 		try{
+			Connection conn = MyConnection.getConnection();
 			Statement stmnt = null;
 			
 			Random rnd = new Random();
@@ -34,6 +39,8 @@ public class UserDAO {
 
 	public void printTestTable() throws SQLException {
 		try{
+			Connection conn = MyConnection.getConnection();
+
 			Statement stmnt = null;
 			ResultSet rs = null;
 			

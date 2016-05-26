@@ -14,9 +14,9 @@ public abstract class  Usuario {
 	public UserDAO userDAO;
 
 
-	
-	public  Usuario(UserDAO userDAO) {
+	public Usuario(UserDAO userDAO) {
 		this.userDAO = userDAO;
+		this.info = new UserInfo();
 	}
 	
 	public Usuario(String userID, UserType userType, String email, String senha,

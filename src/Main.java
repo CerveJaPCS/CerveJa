@@ -2,37 +2,21 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.*;
 
 
 import User.*;
 
 public class Main {
-	private static final String URL = "jdbc:mysql://labsoft.pcs.usp.br:3306/cerveja";
-	private static final String USER = "cerveja";
-	private static final String PASS = "cerveja";
-	private static Connection CONN = null;
-	private static UserDAO userDAO;
-
+		private static UserDAO myUser = null;
+		
 	public static void main(String[] args) throws IOException, ParseException, SQLException {
-		CONN = getConnection();
-		userDAO = new UserDAO(CONN);
+		myUser = UserDAO.getInstance();
 		
 		Caso();
 	}
 	
-	public static Connection getConnection() throws SQLException{
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			return DriverManager.getConnection(URL, USER, PASS);
-		}catch(Exception e){
-			throw new SQLException("Erro ao abrir conex�o com o BD", e);
-		}
-	}
 	
 	public static void Caso() throws IOException, ParseException, SQLException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
@@ -54,12 +38,13 @@ public class Main {
 //	    String TesteEnd = br.readLine();
 //	    System.out.print("Enter Telefone: ");
 //	    String TesteTel = br.readLine();
+		Cliente teste = new Cliente(myUser);
+		teste.info.setNome(TesteNome);
+		teste.insertUser();
+		System.out.println("Usuário inserido com sucesso!");
 		
-	    UserType tipo = UserType.Cliente;
+	    //UserType tipo = UserType.Cliente;
 	    //UserType tipoa = UserType.Administrador;
-	    Cliente teste = new Cliente(userDAO);
-	    teste.info.setNome(TesteNome);
-	    teste.insertUser();
 		//Admin testea = new Admin(TesteUserID, tipoa, TesteEMail, TesteSenha, TesteNome, TesteCPF, TesteRG, TesteDataNasc, TesteEnd, TesteTel);
 		
 	    
