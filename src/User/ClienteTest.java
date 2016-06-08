@@ -2,6 +2,7 @@ package User;
 
 import static org.junit.Assert.*;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -14,10 +15,11 @@ public class ClienteTest {
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate(
     FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
 	
+    
 	LocalDate TesteDN = LocalDate.parse("27.11.1991", dateFormatter);
-	UserInfo TesteInfo = new UserInfo("Aléxis", "427.899.288-27", "48.511.368-5", TesteDN, "Rua Teste, 123", "(11) 99992-5329");
+	UserInfo TesteInfo = new UserInfo("Teste", "527.489.544-88", "85.121.123-4", TesteDN, "Rua Teste, 123", "(11) 1232-4569");
 	UserType tipo = UserType.Cliente;
-	Cliente teste = new Cliente("UserTest", tipo, "alexis.kenji@gmail.com", "senha123", TesteInfo);
+	Cliente teste = new Cliente("UserTest", tipo, "teste.cerveja@pcs2419.com", "senha123", TesteInfo);
 
 	
 	@Test
@@ -41,7 +43,7 @@ public class ClienteTest {
 	@Test
 	public void testGetEmail() {
 		assertNotNull(teste.getEmail());
-		assertEquals("alexis.kenji@gmail.com", teste.getEmail());
+		assertEquals("teste.cerveja@pcs2419.com", teste.getEmail());
 	}
 
 	@Test

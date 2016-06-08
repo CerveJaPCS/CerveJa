@@ -6,8 +6,17 @@ public class Assinatura {
 	
 	private Set<Pacote> pacotes;
 	private Set<Pagamento> payment;
+	private int diaDebito;
 
 	
+	public int getDiaDebito() {
+		return diaDebito;
+	}
+
+	public void setDiaDebito(int diaDebito) {
+		this.diaDebito = diaDebito;
+	}
+
 	public void deleteAssinatura(){
 		//TODO
 	}

@@ -9,7 +9,17 @@ public class Produto {
 	private boolean disponibilidade;
 	private int estoque;
 	private ListaPedido pedido;
+	private String descricao;
 	
+	
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	public Produto(String productId, String nomeProduto, double price,
 			int volume, boolean disponibilidade, int estoque) {
 		this.productId = productId;

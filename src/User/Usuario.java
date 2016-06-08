@@ -8,15 +8,17 @@ public abstract class  Usuario {
 	private String senha;
 	private Boolean ativo;
 	public UserInfo info;
+	private static int MINLENGHT = 2;
 	
 	public  Usuario() {
 		this(null, null, null, null, null);
 	}
 	
+
 	public Usuario(String userID, UserType userType, String email, String senha,
 					UserInfo info){
 		
-		if(userID == null){
+		if(userID == null || userID.length() < MINLENGHT){
 			System.out.println("Erro: valor inv�lido.");
 		}
 		else {
