@@ -13,7 +13,7 @@ public class Produto {
 	
 	
 	public String getDescricao() {
-		return descricao;
+		return this.descricao;
 	}
 
 	public void setDescricao(String descricao) {
@@ -31,7 +31,7 @@ public class Produto {
 	}
 	
 	public ListaPedido getPedido() {
-		return pedido;
+		return this.pedido;
 	}
 
 	public void setPedido(ListaPedido pedido) {
@@ -39,15 +39,18 @@ public class Produto {
 	}
 
 	public int getEstoque() {
-		return estoque;
+		return this.estoque;
 	}
 
+	public void incEstoque(int n){
+		this.estoque += n;
+	}
 	public void setEstoque(int estoque) {
 		this.estoque = estoque;
 	}
 
 	public String getProductId() {
-		return productId;
+		return this.productId;
 	}
 
 	public void setProductId(String productId) {
@@ -55,7 +58,7 @@ public class Produto {
 	}
 
 	public String getNomeProduto() {
-		return nomeProduto;
+		return this.nomeProduto;
 	}
 
 	public void setNomeProduto(String nomeProduto) {
@@ -63,7 +66,7 @@ public class Produto {
 	}
 
 	public double getPrice() {
-		return price;
+		return this.price;
 	}
 
 	public void setPrice(double price) {
@@ -71,7 +74,7 @@ public class Produto {
 	}
 
 	public int getVolume() {
-		return volume;
+		return this.volume;
 	}
 
 	public void setVolume(int volume) {
@@ -79,7 +82,7 @@ public class Produto {
 	}
 
 	public boolean isDisponivel() {
-		return disponibilidade;
+		return this.disponibilidade;
 	}
 
 	public void setDisponibilidade(boolean disponibilidade) {
