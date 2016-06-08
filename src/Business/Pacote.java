@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import Product.*;
 
 public class Pacote {
+	
 	private String pacoteID;
 	private Set<Produto> produtos;
 	private int quantidade;
@@ -20,6 +21,10 @@ public class Pacote {
 		this.periodicidade = periodicidade;
 		this.validity = validity;
 		this.quantidade = produtos.size();
+	}
+
+	public void deletePacote(){
+		//TODO
 	}
 	
 	public int getQuantidade() {

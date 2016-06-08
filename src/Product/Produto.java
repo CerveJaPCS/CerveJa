@@ -1,12 +1,14 @@
 package Product;
 
 public class Produto {
+	
 	private String productId;
 	private String nomeProduto;
 	private double price;
 	private int volume;
 	private boolean disponibilidade;
 	private int estoque;
+	private ListaPedido pedido;
 	
 	public Produto(String productId, String nomeProduto, double price,
 			int volume, boolean disponibilidade, int estoque) {
@@ -18,6 +20,14 @@ public class Produto {
 		this.estoque = estoque;
 	}
 	
+	public ListaPedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(ListaPedido pedido) {
+		this.pedido = pedido;
+	}
+
 	public int getEstoque() {
 		return estoque;
 	}

@@ -3,8 +3,27 @@ package Business;
 import java.util.Set;
 
 public class Assinatura {
-	Set<Pacote> pacotes;
+	
+	private Set<Pacote> pacotes;
+	private Set<Pagamento> payment;
 
+	
+	public void deleteAssinatura(){
+		//TODO
+	}
+	
+	public Set<Pagamento> getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Set<Pagamento> payment) {
+		this.payment = payment;
+	}
+
+	public void addPayment(Pagamento payment){
+		this.payment.add(payment);
+	}
+	
 	public Set<Pacote> getPacotes() {
 		return pacotes;
 	}

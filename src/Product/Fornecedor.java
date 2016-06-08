@@ -1,14 +1,24 @@
 package Product;
 
 public class Fornecedor {
+	
 	private String nomeFornecedor;
 	private String cnpj;
 	private String telefone;
+	private ListaPedido pedido;
 	
 	public Fornecedor(String nomeFornecedor, String cnpj, String telefone) {
 		this.nomeFornecedor = nomeFornecedor;
 		this.cnpj = cnpj;
 		this.telefone = telefone;
+	}
+
+	public ListaPedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(ListaPedido pedido) {
+		this.pedido = pedido;
 	}
 
 	public String getNomeFornecedor() {
