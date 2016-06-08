@@ -1,9 +1,13 @@
 package Product;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Categoria {
 	private String nomeCategoria;
 	private String categoriaId;
 	private String description;
+	private Set<Produto> produtos;
 	
 	public Categoria(String nomeCategoria, String categoriaId,
 			String description) {
@@ -11,6 +15,46 @@ public class Categoria {
 		this.nomeCategoria = nomeCategoria;
 		this.categoriaId = categoriaId;
 		this.description = description;
+	}
+
+	public void addProdutosCategoria(Produto cerveja){
+		if(!verificaProduto(cerveja)){
+			this.produtos.add(cerveja);
+		}
+		else{
+			System.out.println("Produto já existe na categoria " + nomeCategoria);
+		}
+	}
+	
+	public void rmProdutosCategoria(Produto cerveja){
+		if(verificaProduto(cerveja)){
+			this.produtos.remove(cerveja);
+		}
+		else{
+			System.out.println("Produto não existe na categoria " + nomeCategoria);
+		}
+	}
+	
+	private boolean verificaProduto(Produto cerveja){
+//		for(Produto p : produtos){
+//			if(p.getNomeProduto().equals(cerveja.getNomeProduto())){
+//				return true;
+//			}
+//		}
+//		return false;
+		return this.produtos.contains(cerveja);
+	}
+	
+	public Set<Produto> getProdutosCategoria() {
+		Set<Produto> result = new HashSet<Produto>();
+	    for (Produto p : produtos) {
+	        result.add(p);
+	    }
+		return result;
+	}
+
+	public void setProdutosCategoria(Set<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	public String getNomeCategoria() {

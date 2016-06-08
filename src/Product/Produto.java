@@ -6,14 +6,24 @@ public class Produto {
 	private double price;
 	private int volume;
 	private boolean disponibilidade;
+	private int estoque;
 	
 	public Produto(String productId, String nomeProduto, double price,
-			int volume, boolean disponibilidade) {
+			int volume, boolean disponibilidade, int estoque) {
 		this.productId = productId;
 		this.nomeProduto = nomeProduto;
 		this.price = price;
 		this.volume = volume;
 		this.disponibilidade = disponibilidade;
+		this.estoque = estoque;
+	}
+	
+	public int getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(int estoque) {
+		this.estoque = estoque;
 	}
 
 	public String getProductId() {
@@ -48,7 +58,7 @@ public class Produto {
 		this.volume = volume;
 	}
 
-	public boolean isDisponibilidade() {
+	public boolean isDisponivel() {
 		return disponibilidade;
 	}
 

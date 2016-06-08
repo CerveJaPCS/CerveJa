@@ -14,5 +14,14 @@ public class Cliente extends Usuario {
 	public Cliente() {
 		this(null, null, null, null, null);
 	}
+
+	public Assinatura getAssinatura() {
+		return assinatura;
+	}
+
+	public void setAssinatura(Assinatura assinatura) {
+		this.assinatura = assinatura;
+	}
+	
 	
 }
