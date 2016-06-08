@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.*;
+import java.time.LocalDate;
+import java.time.format.*;
+
 
 import User.*;
 
@@ -11,6 +14,7 @@ public class Main {
 	public static void main(String[] args) throws IOException, ParseException {
 		Caso();
 	}
+	
 	public static void Caso() throws IOException, ParseException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
 	    System.out.print("Enter UserID: ");
@@ -31,11 +35,16 @@ public class Main {
 	    String TesteEnd = br.readLine();
 	    System.out.print("Enter Telefone: ");
 	    String TesteTel = br.readLine();
-		
+	    
+	    DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate(
+	            FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
+	    
+	    LocalDate TesteDN = LocalDate.parse(TesteDataNasc, dateFormatter);
+	    UserInfo TesteInfo = new UserInfo(TesteNome, TesteCPF, TesteRG, TesteDN, TesteEnd, TesteTel);
 	    UserType tipo = UserType.Cliente;
 	    //UserType tipoa = UserType.Administrador;
 	    
-		Cliente teste = new Cliente(TesteUserID, tipo, TesteEMail, TesteSenha, TesteNome, TesteCPF, TesteRG, TesteDataNasc, TesteEnd, TesteTel);
+		Cliente teste = new Cliente(TesteUserID, tipo, TesteEMail, TesteSenha, TesteInfo);
 		//Admin testea = new Admin(TesteUserID, tipoa, TesteEMail, TesteSenha, TesteNome, TesteCPF, TesteRG, TesteDataNasc, TesteEnd, TesteTel);
 		
 		

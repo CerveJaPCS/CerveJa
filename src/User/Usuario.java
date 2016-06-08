@@ -10,12 +10,11 @@ public abstract class  Usuario {
 	public UserInfo info;
 	
 	public  Usuario() {
-		this(null, null, null, null, null, null, null, null, null, null);
+		this(null, null, null, null, null);
 	}
 	
 	public Usuario(String userID, UserType userType, String email, String senha,
-					String nome, String cpf, String rg, String dataNascimento, 
-					String endereco, String telefone){
+					UserInfo info){
 		
 		if(userID == null){
 			System.out.println("Erro: valor inv�lido.");
@@ -42,7 +41,7 @@ public abstract class  Usuario {
 		}
 		this.ativo = false;
 		
-		this.info = new UserInfo(nome, cpf, rg, dataNascimento, endereco, telefone);
+		this.info = info;
 	}
 	
 	public void ativar(){

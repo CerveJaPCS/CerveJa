@@ -1,16 +1,19 @@
 package User;
 
+import java.util.*;
+import java.time.LocalDate;
+import java.time.format.*;
 
 public class UserInfo {
 	
 	private String nome;
 	private String cpf;
 	private String rg;
-	private String dataNascimento;
+	private LocalDate dataNascimento;
 	private String endereco;
 	private String telefone;	
 	
-	public UserInfo(String nome, String cpf, String rg, String dataNascimento, String endereco, String telefone){
+	public UserInfo(String nome, String cpf, String rg, LocalDate dataNascimento, String endereco, String telefone){
 		this.nome = nome;
 		this.cpf = cpf;
 		this.rg = rg;
@@ -31,7 +34,7 @@ public class UserInfo {
 		return this.rg;
 	}
 	
-	public String getDataNascimento(){
+	public LocalDate getDataNascimento(){
 		return this.dataNascimento;
 	}
 	
@@ -55,7 +58,7 @@ public class UserInfo {
 		this.rg = rg;
 	}
 
-	public void setDataNascimento(String dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
