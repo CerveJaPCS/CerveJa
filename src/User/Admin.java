@@ -11,4 +11,8 @@ public class Admin extends Usuario {
 	public Admin() {
 		this(null, null, null, null, null);
 	}
+	
+	public void deleteClient(Cliente c){
+		// TODO
+	}
 }
