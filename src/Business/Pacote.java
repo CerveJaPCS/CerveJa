@@ -1,6 +1,5 @@
 package Business;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.time.LocalDate;
 
@@ -62,11 +61,7 @@ public class Pacote {
 	}
 	
 	public Set<Produto> getProdutos() {
-		Set<Produto> result = new HashSet<Produto>();
-	    for (Produto p : produtos) {
-	        result.add(p);
-	    }
-		return result;
+		return produtos;
 	}
 
 	public void setProdutos(Set<Produto> produtos) {

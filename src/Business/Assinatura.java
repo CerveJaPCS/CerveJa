@@ -1,17 +1,12 @@
 package Business;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class Assinatura {
 	Set<Pacote> pacotes;
 
 	public Set<Pacote> getPacotes() {
-		Set<Pacote> result = new HashSet<Pacote>();
-	    for (Pacote p : pacotes) {
-	        result.add(p);
-	    }
-		return result;
+		return pacotes;
 	}
 
 	public void setPacotes(Set<Pacote> pacotes) {

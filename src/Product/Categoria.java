@@ -1,6 +1,5 @@
 package Product;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class Categoria {
@@ -46,11 +45,7 @@ public class Categoria {
 	}
 	
 	public Set<Produto> getProdutosCategoria() {
-		Set<Produto> result = new HashSet<Produto>();
-	    for (Produto p : produtos) {
-	        result.add(p);
-	    }
-		return result;
+		return produtos;
 	}
 
 	public void setProdutosCategoria(Set<Produto> produtos) {
