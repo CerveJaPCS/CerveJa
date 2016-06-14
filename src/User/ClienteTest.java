@@ -17,7 +17,7 @@ public class ClienteTest {
 	LocalDate TesteDN = LocalDate.parse("27.11.1991", dateFormatter);
 	UserInfo TesteInfo = new UserInfo("Aléxis", "427.899.288-27", "48.511.368-5", TesteDN, "Rua Teste, 123", "(11) 99992-5329");
 	UserType tipo = UserType.Cliente;
-	Cliente teste = new Cliente("UserTest", tipo, "alexis.kenji@gmail.com", "senha123", TesteInfo);
+	Cliente teste = new Cliente(tipo, "alexis.kenji@gmail.com", "senha123", TesteInfo);
 
 	
 	@Test
