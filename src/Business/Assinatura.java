@@ -38,6 +38,7 @@ public class Assinatura {
 		}
 		Pagamento pagamento = new Pagamento(this, getValorTotal(), LocalDate.now());
 		pagamento.addPagamento();
+		addPayment(pagamento);
 		estadoAssinatura = EstadoAssinatura.Paga;
 		assinaturaDAO.atualizaEstado(this.assinaturaID, EstadoAssinatura.Paga);
 	}
@@ -52,16 +53,13 @@ public class Assinatura {
 		this.assinaturaID = assinaturaDAO.addAssinatura(diaDebito);
 	}
 	
-	public void setAssinaturaID(int assinaturaID) {
-		this.assinaturaID = assinaturaID;
-	}
-
 	public EstadoAssinatura getEstadoAssinatura() {
 		return estadoAssinatura;
 	}
 
-	public void setEstadoAssinatura(EstadoAssinatura estadoAssinatura) {
+	public void setEstadoAssinatura(EstadoAssinatura estadoAssinatura) throws SQLException {
 		this.estadoAssinatura = estadoAssinatura;
+		assinaturaDAO.atualizaEstado(this.assinaturaID, estadoAssinatura);
 	}
 
 	public int getDiaDebito() {
