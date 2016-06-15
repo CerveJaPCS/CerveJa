@@ -23,6 +23,11 @@ public class AssinaturaDAO {
 		return instance;
 	}
 	
+	public int getID(){
+		return 0;
+		
+	}
+	
 	public int getDiaDebito(int assinaturaID) throws SQLException{
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement getdd = null;
@@ -81,44 +86,44 @@ public class AssinaturaDAO {
 		return ea;
 	}
 	
-	public Set<Pacote> getPacotes(int assinaturaID) throws SQLException{
-	    Set<Pacote> temp = new HashSet<Pacote>();
-		Connection conn = MyConnection.getConnection();
-		PreparedStatement getpack = null;
-		 
-		try {
-			sql = "SELECT A.assinaturaID, pacoteID, periodicidade, dataCriacao, quantidade, validade "
-					+ "FROM cerveja.assinatura A, cerveja.pacote B "
-					+ "WHERE A.assinaturaID = ? AND A.assinaturaID = B.assinaturaID";
-			getpack = conn.prepareStatement(sql);
-			getpack.setInt(1, assinaturaID);
-			ResultSet rs = getpack.executeQuery();
-			while(rs.next()){
-				Pacote p = new Pacote();
-				rs.getInt("assinaturaID");
-				LocalDate dc = rs.getDate("dataCriacao").toLocalDate();
-				p.setPacoteID(rs.getInt("pacoteID"));
-				p.setPeriodicidade(rs.getString("periodicidade"));					
-				p.setValidity(rs.getBoolean("validade"));
-				p.setCreateDate(dc);				
-				p.setQuantidade(rs.getInt("quantidade"));
-				temp.add(p);
-			}
-			return temp;
-			
-		} catch (SQLException e) {
-			// TODO: handle exception
-		}finally {
-			if (getpack != null) {
-				getpack.close();
-			}
-
-			if (conn!= null) {
-				conn.close();
-			}
-		}
-		return temp;
-	}
+//	public Set<Pacote> getPacotes(int assinaturaID) throws SQLException{
+//	    Set<Pacote> temp = new HashSet<Pacote>();
+//		Connection conn = MyConnection.getConnection();
+//		PreparedStatement getpack = null;
+//		 
+//		try {
+//			sql = "SELECT A.assinaturaID, pacoteID, periodicidade, dataCriacao, quantidade, validade "
+//					+ "FROM cerveja.assinatura A, cerveja.pacote B "
+//					+ "WHERE A.assinaturaID = ? AND A.assinaturaID = B.assinaturaID";
+//			getpack = conn.prepareStatement(sql);
+//			getpack.setInt(1, assinaturaID);
+//			ResultSet rs = getpack.executeQuery();
+//			while(rs.next()){
+//				Pacote p = new Pacote();
+//				rs.getInt("assinaturaID");
+//				LocalDate dc = rs.getDate("dataCriacao").toLocalDate();
+//				p.setPacoteID(rs.getInt("pacoteID"));
+//				p.setPeriodicidade(rs.getString("periodicidade"));					
+//				p.setValidity(rs.getBoolean("validade"));
+//				p.setCreateDate(dc);				
+//				p.setQuantidade(rs.getInt("quantidade"));
+//				temp.add(p);
+//			}
+//			return temp;
+//			
+//		} catch (SQLException e) {
+//			// TODO: handle exception
+//		}finally {
+//			if (getpack != null) {
+//				getpack.close();
+//			}
+//
+//			if (conn!= null) {
+//				conn.close();
+//			}
+//		}
+//		return temp;
+//	}
 	
 
 }

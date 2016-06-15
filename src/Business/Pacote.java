@@ -2,6 +2,7 @@ package Business;
 
 import java.util.Set;
 import java.time.LocalDate;
+import java.sql.SQLException;
 
 import Product.*;
 
@@ -13,22 +14,39 @@ public class Pacote {
 	private LocalDate createDate;
 	private String periodicidade;
 	private boolean validity;
+	private Assinatura assinatura;
+	private PacoteDAO dao = PacoteDAO.getInstance();
 	
-	public Pacote(int pacoteID, Set<Produto> produtos, LocalDate createDate, String periodicidade, boolean validity) {
-		this.pacoteID = pacoteID;
+	public Pacote(Set<Produto> produtos, LocalDate createDate, String periodicidade, boolean validity, Assinatura assinatura) {
 		this.produtos = produtos;
 		this.createDate = createDate;
 		this.periodicidade = periodicidade;
 		this.validity = validity;
 		this.quantidade = produtos.size();
+		this.assinatura = assinatura;
+	}
+	
+	public boolean addPacote(){
+		try{
+			pacoteID = dao.insertPacote(periodicidade, createDate, assinatura, validity, quantidade, produtos);
+			return true;
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
-	public Pacote() {
+	public boolean deletePacote(){
+		try{
+			dao.deletePacote(pacoteID);
+			return true;
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		}
 		
-	}
-
-	public void deletePacote(){
-		//TODO
 	}
 	
 	public int getQuantidade() {
@@ -118,6 +136,14 @@ public class Pacote {
 
 	public void setValidity(boolean validity) {
 		this.validity = validity;
+	}
+	
+	public Assinatura getAssinatura(){
+		return assinatura;
+	}
+	
+	public void setAssinatura(Assinatura assinatura){
+		this.assinatura = assinatura;
 	}
 	
 	

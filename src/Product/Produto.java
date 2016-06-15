@@ -2,7 +2,7 @@ package Product;
 
 public class Produto {
 	
-	private String productId;
+	private int productId;
 	private String nomeProduto;
 	private double price;
 	private int volume;
@@ -10,7 +10,7 @@ public class Produto {
 	private int estoque;
 	private ListaPedido pedido;
 	
-	public Produto(String productId, String nomeProduto, double price,
+	public Produto(int productId, String nomeProduto, double price,
 			int volume, boolean disponibilidade, int estoque) {
 		this.productId = productId;
 		this.nomeProduto = nomeProduto;
@@ -18,6 +18,10 @@ public class Produto {
 		this.volume = volume;
 		this.disponibilidade = disponibilidade;
 		this.estoque = estoque;
+	}
+	
+	public int getID(){
+		return 0;
 	}
 	
 	public ListaPedido getPedido() {
@@ -36,11 +40,11 @@ public class Produto {
 		this.estoque = estoque;
 	}
 
-	public String getProductId() {
+	public int getProductId() {
 		return productId;
 	}
 
-	public void setProductId(String productId) {
+	public void setProductId(int productId) {
 		this.productId = productId;
 	}
 

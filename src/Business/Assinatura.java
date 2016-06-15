@@ -4,11 +4,25 @@ import java.util.Set;
 
 public class Assinatura {
 	
+	private int pacoteID;
 	private Set<Pacote> pacotes;
 	private Set<Pagamento> payment;
 	private int diaDebito;
 	private EstadoAssinatura estadoAssinatura;
+	private AssinaturaDAO assinaturaDAO = AssinaturaDAO.getInstance();
 
+	
+	public int getPacoteID() {
+		return pacoteID;
+	}
+
+	public void setPacoteID(int pacoteID) {
+		this.pacoteID = pacoteID;
+	}
+
+	public int getID(){
+		return assinaturaDAO.getID();
+	}
 	
 	public EstadoAssinatura getEstadoAssinatura() {
 		return estadoAssinatura;
