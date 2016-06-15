@@ -1,6 +1,7 @@
 package Business;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Set;
 
 public class Assinatura {
@@ -12,6 +13,34 @@ public class Assinatura {
 	private EstadoAssinatura estadoAssinatura;
 	private AssinaturaDAO assinaturaDAO = AssinaturaDAO.getInstance();
 
+	public void atualizarEstado(){
+		LocalDate dataDebito;
+		if(LocalDate.now().getDayOfMonth() <= diaDebito)
+			dataDebito = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), diaDebito);
+		else
+			dataDebito = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue() + 1, diaDebito);
+		if(LocalDate.now() == dataDebito){
+			estadoAssinatura = EstadoAssinatura.AguardandoPagamento;
+			assinaturaDAO.atualizaEstado(EstadoAssinatura.AguardandoPagamento);
+		}
+		if(estadoAssinatura == EstadoAssinatura.AguardandoPagamento
+				&& LocalDate.now().isAfter(dataDebito.plusDays(10))){
+			estadoAssinatura = EstadoAssinatura.NaoPaga;
+			assinaturaDAO.atualizaEstado(EstadoAssinatura.NaoPaga);
+		}
+	}
+	
+	public void pagar(){
+		if(estadoAssinatura != EstadoAssinatura.AguardandoPagamento) {
+			System.out.println("Assinatura não está aguardando pagamento!");
+			return;
+		}
+		Pagamento pagamento = new Pagamento(this, getValorTotal(), LocalDate.now());
+		pagamento.addPagamento();
+		estadoAssinatura = EstadoAssinatura.Paga;
+		assinaturaDAO.atualizaEstado(EstadoAssinatura.Paga);
+	}
+	
 	
 	public int getAssinaturaID() {
 		return assinaturaID;
