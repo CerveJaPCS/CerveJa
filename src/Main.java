@@ -2,6 +2,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.*;
 import java.time.LocalDate;
@@ -11,11 +12,11 @@ import java.time.format.*;
 import User.*;
 
 public class Main {
-	public static void main(String[] args) throws IOException, ParseException {
+	public static void main(String[] args) throws IOException, ParseException, SQLException {
 		Caso();
 	}
 	
-	public static void Caso() throws IOException, ParseException {
+	public static void Caso() throws IOException, ParseException, SQLException {
 //		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
 //	    System.out.print("Enter E-Mail: ");
 //	    String TesteEMail = br.readLine();
@@ -43,11 +44,26 @@ public class Main {
 	    //UserType tipoa = UserType.Administrador;
 	    
 		Cliente teste = new Cliente(tipo, "teste@teste.com", "12345678", TesteInfo);
-		//teste.info.addUserInfo();
-		teste.addUser();
+//		UserDAO dao = UserDAO.getInstance();
+//		System.out.println(dao.makePasswordHash("12345678"));
+//		System.out.println(dao.makePasswordHash("12345678"));
+//		System.out.println(dao.makePasswordHash("12345678"));
+//		teste.info.addUserInfo();
+//		teste.addUser();
+//		if(teste.getUserAuth("teste@teste.com", "12345678")){
+//			System.out.println("Usuário encontrado!");
+//		}
+//		else{
+//			System.out.println("Usuário não foi encontrado.");
+//		}
+//		List<String> temp = teste.getUser(10);
+//		for(String s : temp){
+//			System.out.println(s);
+//		}
+		//teste.delUser("teste@teste.com", 8);
 		//Admin testea = new Admin(TesteUserID, tipoa, TesteEMail, TesteSenha, TesteNome, TesteCPF, TesteRG, TesteDataNasc, TesteEnd, TesteTel);
-		
-		
+		// [B@606d8acf,-182514720
+		//[B@33833882,-182514720
 //	    System.out.println(teste.getUserID());
 //		System.out.println(teste.getUserType());
 //		System.out.println(teste.getEmail());
