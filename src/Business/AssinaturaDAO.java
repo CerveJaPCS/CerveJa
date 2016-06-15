@@ -23,8 +23,26 @@ public class AssinaturaDAO {
 		return instance;
 	}
 
-	public void atualizaEstado(EstadoAssinatura ea){
-		
+	public void atualizaEstado(int assinaturaID, EstadoAssinatura ea) throws SQLException{
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement upstate = null;
+		try{
+			sql = "UPDATE cerveja.assinatura SET cerveja.assinatura.estadoAssinaturaID = ? WHERE cerveja.assinaturaID = ? "; 
+			upstate = conn.prepareStatement(sql);
+			upstate.setInt(1, ea.ordinal() + 1);
+			upstate.setInt(2, assinaturaID);
+			upstate.executeUpdate();
+		}catch (SQLException e){
+            throw new SQLException("Erro ao atualizar estado da assinatura", e);
+
+		}finally {
+			if (upstate != null) {
+				upstate.close();
+			}
+			if (conn!= null) {
+				conn.close();
+			}
+		}
 	}
 	
 	public int addAssinatura(int diaDebito) throws SQLException{
