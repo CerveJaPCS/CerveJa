@@ -1,18 +1,58 @@
 package Product;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import User.UserDAO;
+
 public class Fornecedor {
 	
+	private int fornecedorID;
 	private String nomeFornecedor;
 	private String cnpj;
 	private String telefone;
 	private ListaPedido pedido;
+	private FornecedorDAO fornDAO = FornecedorDAO.getInstance();
+
 	
-	public Fornecedor(String nomeFornecedor, String cnpj, String telefone) {
+	public Fornecedor(int fornecedorID, String nomeFornecedor, String cnpj, String telefone) {
+		this.fornecedorID = fornecedorID;
 		this.nomeFornecedor = nomeFornecedor;
 		this.cnpj = cnpj;
 		this.telefone = telefone;
 	}
 
+	
+	public void addFornecedor(){
+		try{
+			fornDAO.insertFornecedor(this.nomeFornecedor, this.cnpj, this.telefone);
+			
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteFornecedor(int fornecedorID) throws SQLException{
+		fornDAO.deleteFornecedor(fornecedorID);
+	}
+	
+	public void deleteFornecedor(String cnpj) throws SQLException{
+		fornDAO.deleteFornecedor(cnpj);
+	}
+	
+	public List<String> getFornecedor(int fornecedorID) throws SQLException{
+		return fornDAO.getFornecedor(fornecedorID) ;
+	}
+	
+	public List<String> getFornecedor(String cnpj) throws SQLException{
+		return fornDAO.getFornecedor(cnpj) ;
+	}
+	
+	public int getFornecedorID() {
+		return fornecedorID;
+	}
+	
 	public ListaPedido getPedido() {
 		return pedido;
 	}

@@ -175,6 +175,37 @@ public class FornecedorDAO {
 	
 	
 	
+	public int getFornecedorID(String cnpj) throws SQLException {
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement getuserinfo = null;
+		int infoid = -1;
+		try{
+			sql = "SELECT fornecedorID FROM cerveja.fornecedor WHERE cnpj = ?";
+			getuserinfo = conn.prepareStatement(sql);
+			getuserinfo.setString(1, cnpj);
+			ResultSet rs = getuserinfo.executeQuery();
+			while(rs.next()){
+				infoid = rs.getInt("fornecedorID");
+			}
+			return infoid;
+		}
+		catch(Exception e){
+			throw new SQLException("Erro ao buscar linha de teste.", e);
+		}finally {
+
+			if (getuserinfo != null) {
+				getuserinfo.close();
+			}
+
+			if (conn!= null) {
+				conn.close();
+			}
+		}
+	}
+	
+	
+	
+	
 	public void printTestTable() throws SQLException {
 		try{
 			Connection conn = MyConnection.getConnection();

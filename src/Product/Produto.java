@@ -2,26 +2,36 @@ package Product;
 
 public class Produto {
 	
+	public enum Volume{
+		Lata,
+		Litro,
+		LongNeck,
+		Barril
+	}
+	
+	public enum Marca{
+	Heineken,
+	Budweiser,
+	StellaArtois,
+	}
+	
+	
 	private int productId;
 	private String nomeProduto;
 	private double price;
-	private int volume;
+	private Volume volume;
 	private boolean disponibilidade;
 	private int estoque;
 	private ListaPedido pedido;
 	
-	public Produto(int productId, String nomeProduto, double price,
-			int volume, boolean disponibilidade, int estoque) {
+	public Produto(int productId, double price,
+			boolean disponibilidade, String nomeProduto,Volume volume,  int estoque) {
 		this.productId = productId;
 		this.nomeProduto = nomeProduto;
 		this.price = price;
 		this.volume = volume;
 		this.disponibilidade = disponibilidade;
 		this.estoque = estoque;
-	}
-	
-	public int getID(){
-		return 0;
 	}
 	
 	public ListaPedido getPedido() {
@@ -64,13 +74,13 @@ public class Produto {
 		this.price = price;
 	}
 
-	public int getVolume() {
-		return volume;
-	}
+	//public int getVolume() {
+	//	return volume;
+//	}
 
-	public void setVolume(int volume) {
-		this.volume = volume;
-	}
+	//public void setVolume(int volume) {
+//		this.volume = volume;
+//	}
 
 	public boolean isDisponivel() {
 		return disponibilidade;

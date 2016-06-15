@@ -98,19 +98,19 @@ public class ListaPedidoDAO {
 	
 	
 	
-	public void deletePedido(String pedidoID) throws SQLException {
+	public void deletePedido(int pedidoID) throws SQLException {
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement deluser = null;
 		try{
 		
 			sql = "DELETE FROM cerveja.pedido WHERE pedidoID = ?";
 			deluser = conn.prepareStatement(sql);
-			deluser.setString(1, pedidoID);
+			deluser.setInt(1, pedidoID);
 			deluser.execute();
 			deluser.close();
 		}
 		catch(Exception e){
-			throw new SQLException("Erro ao deletar linha de teste.", e);
+			throw new SQLException("Erro ao deletar pedido", e);
 		}finally {
 
 			if (deluser != null) {
@@ -124,6 +124,34 @@ public class ListaPedidoDAO {
 		}
 	}	
 	
+	public int getPedidoID(String cpf) throws SQLException {
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement getuserinfo = null;
+		int infoid = -1;
+		try{
+			sql = "SELECT pedidoID FROM cerveja.pedido WHERE cpf = ?";
+			getuserinfo = conn.prepareStatement(sql);
+			getuserinfo.setString(1, cpf);
+			ResultSet rs = getuserinfo.executeQuery();
+			while(rs.next()){
+				infoid = rs.getInt("pedidoID");
+			}
+			return infoid;
+		}
+		catch(Exception e){
+			throw new SQLException("Erro ao buscar pedidoID", e);
+		}finally {
+
+			if (getuserinfo != null) {
+				getuserinfo.close();
+			}
+
+			if (conn!= null) {
+				conn.close();
+			}
+		}
+	
+	}
 	
 	
 	/*
