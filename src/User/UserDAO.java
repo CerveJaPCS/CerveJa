@@ -105,16 +105,20 @@ public class UserDAO {
 		try{
 		
 			Date dob = Date.valueOf(datanasc);
-			
-			sql = "INSERT INTO cerveja.user_info (nome, cpf, rg, dataNascimento,endereco, telefone) VALUES (?,?,?,?,?,?)";
-			insertuserinfo = conn.prepareStatement(sql);
-			insertuserinfo.setString(1, nome);
-			insertuserinfo.setString(2, cpf);
-			insertuserinfo.setString(3, rg);
-			insertuserinfo.setDate(4, dob);
-			insertuserinfo.setString(5, endereco);
-			insertuserinfo.setString(6, telefone);
-			insertuserinfo.executeUpdate();
+			if(getUserInfoID(cpf) == -1){
+				sql = "INSERT INTO cerveja.user_info (nome, cpf, rg, dataNascimento,endereco, telefone) VALUES (?,?,?,?,?,?)";
+				insertuserinfo = conn.prepareStatement(sql);
+				insertuserinfo.setString(1, nome);
+				insertuserinfo.setString(2, cpf);
+				insertuserinfo.setString(3, rg);
+				insertuserinfo.setDate(4, dob);
+				insertuserinfo.setString(5, endereco);
+				insertuserinfo.setString(6, telefone);
+				insertuserinfo.executeUpdate();
+			}
+			else{
+				System.out.println("Usuário já cadastrado.");
+			}
 		}
 		catch(Exception e){
 			throw new SQLException("Erro ao inserir linha de teste.", e);
@@ -134,7 +138,7 @@ public class UserDAO {
 	public int getUserInfoID(String cpf) throws SQLException {
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement getuserinfo = null;
-		int infoid = 0;
+		int infoid = -1;
 		try{
 			sql = "SELECT userInfoID FROM cerveja.user_info WHERE cpf = ?";
 			getuserinfo = conn.prepareStatement(sql);
@@ -159,6 +163,33 @@ public class UserDAO {
 		}
 	}
 	
+	public boolean verifyUser(String email) throws SQLException{
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement vuser = null;
+		try{
+			sql = "SELECT userInfoID FROM cerveja.usuario WHERE email = ?";
+			vuser = conn.prepareStatement(sql);
+			vuser.setString(1, email);
+			ResultSet rs = vuser.executeQuery();
+			if(!rs.next()){
+				return false;
+			}
+			return true;
+		}
+		catch(Exception e){
+			throw new SQLException("Erro ao buscar linha de teste.", e);
+		}finally {
+
+			if (vuser != null) {
+				vuser.close();
+			}
+
+			if (conn!= null) {
+				conn.close();
+			}
+		}
+	}
+	
 	public void insertUser(String email, UserType tipo, String senha, int infoid) throws SQLException {
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement insertuser = null;
@@ -166,19 +197,23 @@ public class UserDAO {
 		String passwordHash = makePasswordHash(senha);
 
 		try{
-			
-			sql = "INSERT INTO cerveja.usuario (userTypeID, email, senha, userInfoID) VALUES (?,?,?,?)";
-			insertuser = conn.prepareStatement(sql);
-			if(tipo.equals(UserType.Cliente)){
-				insertuser.setInt(1, 1);
+			if(!verifyUser(email)){
+				sql = "INSERT INTO cerveja.usuario (userTypeID, email, senha, userInfoID) VALUES (?,?,?,?)";
+				insertuser = conn.prepareStatement(sql);
+				if(tipo.equals(UserType.Cliente)){
+					insertuser.setInt(1, 1);
+				}
+				else{
+					insertuser.setInt(1, 2);
+				}
+				insertuser.setString(2,email);
+				insertuser.setString(3, passwordHash);
+				insertuser.setInt(4, infoid);
+				insertuser.executeUpdate();
 			}
 			else{
-				insertuser.setInt(1, 2);
+				System.out.println("Usuário já cadastrado.");
 			}
-			insertuser.setString(2,email);
-			insertuser.setString(3, passwordHash);
-			insertuser.setInt(4, infoid);
-			insertuser.executeUpdate();
 		}
 		catch(Exception e){
 			throw new SQLException("Erro ao inserir linha de teste.", e);

@@ -60,7 +60,7 @@ public class Main {
 //		for(String s : temp){
 //			System.out.println(s);
 //		}
-		//teste.delUser("teste@teste.com", 8);
+//		teste.delUser("teste@teste.com", 13);
 		//Admin testea = new Admin(TesteUserID, tipoa, TesteEMail, TesteSenha, TesteNome, TesteCPF, TesteRG, TesteDataNasc, TesteEnd, TesteTel);
 		// [B@606d8acf,-182514720
 		//[B@33833882,-182514720
