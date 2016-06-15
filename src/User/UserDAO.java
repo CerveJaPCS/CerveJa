@@ -39,7 +39,7 @@ public class UserDAO {
 				lst.add(rs.getString("email"));
 				lst.add(rs.getString("cpf"));
 				lst.add(rs.getString("rg"));
-				Date dob = rs.getDate("dataNascimento");
+				LocalDate dob = rs.getDate("dataNascimento").toLocalDate();
 				//LocalDate dn = dob.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				lst.add(dob.toString());
 				lst.add(rs.getString("endereco"));

@@ -5,6 +5,10 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.*;
+
+import Business.AssinaturaDAO;
+import Business.Pacote;
+
 import java.time.LocalDate;
 import java.time.format.*;
 
@@ -44,6 +48,11 @@ public class Main {
 	    //UserType tipoa = UserType.Administrador;
 	    
 		Cliente teste = new Cliente(tipo, "teste@teste.com", "12345678", TesteInfo);
+//		AssinaturaDAO dao = AssinaturaDAO.getInstance();
+//		for(Pacote p : dao.getPacotes(3)){
+//			System.out.println(p.getPacoteID());
+//		}
+//		System.out.println(dao.getEstadoAssinatura(5));
 //		UserDAO dao = UserDAO.getInstance();
 //		System.out.println(dao.makePasswordHash("12345678"));
 //		System.out.println(dao.makePasswordHash("12345678"));

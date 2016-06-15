@@ -7,20 +7,24 @@ import Product.*;
 
 public class Pacote {
 	
-	private String pacoteID;
+	private int pacoteID;
 	private Set<Produto> produtos;
 	private int quantidade;
 	private LocalDate createDate;
 	private String periodicidade;
 	private boolean validity;
 	
-	public Pacote(String pacoteID, Set<Produto> produtos, LocalDate createDate, String periodicidade, boolean validity) {
+	public Pacote(int pacoteID, Set<Produto> produtos, LocalDate createDate, String periodicidade, boolean validity) {
 		this.pacoteID = pacoteID;
 		this.produtos = produtos;
 		this.createDate = createDate;
 		this.periodicidade = periodicidade;
 		this.validity = validity;
 		this.quantidade = produtos.size();
+	}
+
+	public Pacote() {
+		
 	}
 
 	public void deletePacote(){
@@ -45,11 +49,11 @@ public class Pacote {
 		return valorPacote;
 	}
 	
-	public String getPacoteID() {
+	public int getPacoteID() {
 		return pacoteID;
 	}
 
-	public void setPacoteID(String pacoteID) {
+	public void setPacoteID(int pacoteID) {
 		this.pacoteID = pacoteID;
 	}
 

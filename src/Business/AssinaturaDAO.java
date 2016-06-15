@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import User.MyConnection;
@@ -21,16 +23,88 @@ public class AssinaturaDAO {
 		return instance;
 	}
 	
+	public int getDiaDebito(int assinaturaID) throws SQLException{
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement getdd = null;
+		int dd = -1;
+		try {
+			sql = "SELECT diaDebito "
+					+ "FROM cerveja.assinatura "
+					+ "WHERE assinaturaID = ?";
+			getdd = conn.prepareStatement(sql);
+			getdd.setInt(1, assinaturaID);
+			ResultSet rs = getdd.executeQuery();
+			while(rs.next()){
+				dd = rs.getInt("diaDebito");
+				return dd;
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}finally {
+			if (getdd != null) {
+				getdd.close();
+			}
+
+			if (conn!= null) {
+				conn.close();
+			}
+		}
+		return dd;
+	}
+	
+	public EstadoAssinatura getEstadoAssinatura(int assinaturaID) throws SQLException{
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement getea = null;
+		EstadoAssinatura ea = null;
+		try {
+			sql = "SELECT descricao "
+					+ "FROM cerveja.assinatura A, cerveja.estados_assinaturas B "
+					+ "WHERE A.assinaturaID = ? AND A.estadoAssinaturaID=B.estadoAssinaturaID";
+			getea = conn.prepareStatement(sql);
+			getea.setInt(1, assinaturaID);
+			ResultSet rs = getea.executeQuery();
+			while(rs.next()){
+				ea = EstadoAssinatura.valueOf(rs.getString("descricao"));
+				return ea;
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}finally {
+			if (getea != null) {
+				getea.close();
+			}
+
+			if (conn!= null) {
+				conn.close();
+			}
+		}
+		return ea;
+	}
+	
 	public Set<Pacote> getPacotes(int assinaturaID) throws SQLException{
-		Set<Pacote> temp = null;
+	    Set<Pacote> temp = new HashSet<Pacote>();
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement getpack = null;
+		 
 		try {
-			sql = "SELECT nome, email, cpf, rg, dataNascimento, endereco, telefone "
-					+ "FROM cerveja.usuario A INNER JOIN cerveja.user_info B "
-					+ "ON A.userInfoID=B.userInfoID "
-					+ "WHERE usuarioID = ?";
+			sql = "SELECT A.assinaturaID, pacoteID, periodicidade, dataCriacao, quantidade, validade "
+					+ "FROM cerveja.assinatura A, cerveja.pacote B "
+					+ "WHERE A.assinaturaID = ? AND A.assinaturaID = B.assinaturaID";
 			getpack = conn.prepareStatement(sql);
+			getpack.setInt(1, assinaturaID);
+			ResultSet rs = getpack.executeQuery();
+			while(rs.next()){
+				Pacote p = new Pacote();
+				rs.getInt("assinaturaID");
+				LocalDate dc = rs.getDate("dataCriacao").toLocalDate();
+				p.setPacoteID(rs.getInt("pacoteID"));
+				p.setPeriodicidade(rs.getString("periodicidade"));					
+				p.setValidity(rs.getBoolean("validade"));
+				p.setCreateDate(dc);				
+				p.setQuantidade(rs.getInt("quantidade"));
+				temp.add(p);
+			}
+			return temp;
 			
 		} catch (SQLException e) {
 			// TODO: handle exception
