@@ -23,6 +23,9 @@ public class AssinaturaDAO {
 		return instance;
 	}
 
+	public void atualizaEstado(EstadoAssinatura ea){
+		
+	}
 	
 	public int addAssinatura(int diaDebito) throws SQLException{
 		Connection conn = MyConnection.getConnection();

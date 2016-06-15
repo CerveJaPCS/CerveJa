@@ -22,8 +22,8 @@ public class Assinatura {
 		this.assinaturaID = assinaturaDAO.addAssinatura(diaDebito);
 	}
 	
-	public void setPacoteID(int pacoteID) {
-		this.assinaturaID = pacoteID;
+	public void setAssinaturaID(int assinaturaID) {
+		this.assinaturaID = assinaturaID;
 	}
 
 	public EstadoAssinatura getEstadoAssinatura() {
