@@ -29,7 +29,7 @@ public class PagamentoDAO {
             stmnt = conn.prepareStatement(sql);
             stmnt.setInt(1, valor);
             stmnt.setDate(2, Date.valueOf(dataPagamento));
-            stmnt.setInt(3, assinatura.getID());
+            stmnt.setInt(3, assinatura.getAssinaturaID());
             stmnt.executeUpdate();
         }
         catch(Exception e){

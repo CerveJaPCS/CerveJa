@@ -31,7 +31,7 @@ public class PacoteDAO {
             stmnt = conn.prepareStatement(sql);
             stmnt.setString(1, periodicidade);
             stmnt.setDate(2, Date.valueOf(createDate));
-            stmnt.setInt(3, assinatura.getID());
+            stmnt.setInt(3, assinatura.getAssinaturaID());
             stmnt.setBoolean(4, validity);
             stmnt.setInt(5, quantidade);
             stmnt.executeUpdate();

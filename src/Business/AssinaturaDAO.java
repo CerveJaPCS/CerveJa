@@ -22,10 +22,51 @@ public class AssinaturaDAO {
 	public static AssinaturaDAO getInstance(){
 		return instance;
 	}
+
 	
-	public int getID(){
-		return 0;
+	public int addAssinatura(int diaDebito) throws SQLException{
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement addassin = null;
+		PreparedStatement getid = null;
+		int assinaturaid = 0;
+
+		try {
+			sql = "INSERT INTO cerveja.assinatura "
+					+ "(diaDebito, estadoAssinaturaID) "
+					+ "VALUES (?, ?)";
+			addassin = conn.prepareStatement(sql);
+			addassin.setInt(1, diaDebito);
+			addassin.setInt(2, 1);
+			addassin.executeUpdate();
+			addassin.close();
+			
+		} catch (SQLException e) {
+            throw new SQLException("Erro ao inserir assinatura", e);
+		}finally {
+			if (addassin != null) {
+				addassin.close();
+			}
+		}
 		
+		try{
+			sql = "SELECT MAX(assinaturaID) AS lastID FROM cerveja.assinatura"; 
+			getid = conn.prepareStatement(sql);
+			ResultSet rs = getid.executeQuery();
+			while(rs.next()){
+				assinaturaid = rs.getInt("lastID");
+			}
+			return assinaturaid;
+		}catch (SQLException e){
+            throw new SQLException("Erro ao pegar ID da assinatura", e);
+
+		}finally {
+			if (getid != null) {
+				getid.close();
+			}
+			if (conn!= null) {
+				conn.close();
+			}
+		}
 	}
 	
 	public int getDiaDebito(int assinaturaID) throws SQLException{

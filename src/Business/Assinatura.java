@@ -1,10 +1,11 @@
 package Business;
 
+import java.sql.SQLException;
 import java.util.Set;
 
 public class Assinatura {
 	
-	private int pacoteID;
+	private int assinaturaID;
 	private Set<Pacote> pacotes;
 	private Set<Pagamento> payment;
 	private int diaDebito;
@@ -12,18 +13,19 @@ public class Assinatura {
 	private AssinaturaDAO assinaturaDAO = AssinaturaDAO.getInstance();
 
 	
-	public int getPacoteID() {
-		return pacoteID;
+	public int getAssinaturaID() {
+		return assinaturaID;
 	}
 
-	public void setPacoteID(int pacoteID) {
-		this.pacoteID = pacoteID;
-	}
-
-	public int getID(){
-		return assinaturaDAO.getID();
+	public void addAssinatura(int diaDebito) throws SQLException{
+		this.diaDebito = diaDebito;
+		this.assinaturaID = assinaturaDAO.addAssinatura(diaDebito);
 	}
 	
+	public void setPacoteID(int pacoteID) {
+		this.assinaturaID = pacoteID;
+	}
+
 	public EstadoAssinatura getEstadoAssinatura() {
 		return estadoAssinatura;
 	}
