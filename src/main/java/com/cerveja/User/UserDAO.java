@@ -242,7 +242,7 @@ public class UserDAO {
 		}
 	}
 	
-	public void insertUser(String email, UserType tipo, String senha, int infoid) throws SQLException {
+	public boolean insertUser(String email, UserType tipo, String senha, int infoid) throws SQLException {
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement insertuser = null;
 		
@@ -262,19 +262,19 @@ public class UserDAO {
 				insertuser.setString(3, passwordHash);
 				insertuser.setInt(4, infoid);
 				insertuser.executeUpdate();
+				return true;
 			}
 			else{
 				System.out.println("Usuário já cadastrado.");
+				return false;
 			}
 		}
 		catch(Exception e){
 			throw new SQLException("Erro ao inserir linha de teste.", e);
 		}finally {
-
 			if (insertuser != null) {
 				insertuser.close();
 			}
-
 			if (conn!= null) {
 				conn.close();
 			}

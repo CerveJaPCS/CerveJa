@@ -70,10 +70,11 @@ public abstract class  Usuario {
 			String cpf = this.info.getCPF();
 			int infoid = this.info.getUserInfoID(cpf);
 			if(infoid != -1){
-				userdao.insertUser(this.email, this.userType, this.senha, infoid);
-				String activateCode = makeHashKey(this.email);
-				sendMail(activateCode, this.email);
-				return true;
+				if(userdao.insertUser(this.email, this.userType, this.senha, infoid)){
+					String activateCode = makeHashKey(this.email);
+					sendMail(activateCode, this.email);
+					return true;
+				}
 			}
 			else{
 				return false;
@@ -83,6 +84,7 @@ public abstract class  Usuario {
 			e.printStackTrace();
 			return false;
 		}
+		return false;
 	}
 	
 	public void ativar(){
