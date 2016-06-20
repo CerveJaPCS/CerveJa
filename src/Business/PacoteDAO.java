@@ -66,7 +66,7 @@ public class PacoteDAO {
                 sql = "INSERT INTO cerveja.pacote_produto (pacoteID, produtoID) VALUES (?, ?)";
                 stmnt2 = conn.prepareStatement(sql);
                 stmnt2.setInt(1, pacoteID);
-                stmnt2.setInt(2, produtosArr[i].getID());
+                stmnt2.setInt(2, produtosArr[i].getProductId());
                 stmnt2.executeUpdate();
             }
             catch(Exception e){
