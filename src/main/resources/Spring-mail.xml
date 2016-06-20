@@ -6,8 +6,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	<property name="host" value="smtp.gmail.com" />
 	<property name="port" value="587" />
-	<property name="username" value="alexis.kenji@gmail.com" />
-	<property name="password" value="166432Lex5846731" />
+	<property name="username" value="email />
+	<property name="password" value="senha" />
 		
 	<property name="javaMailProperties">
 	   <props>
