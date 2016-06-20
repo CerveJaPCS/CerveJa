@@ -1,4 +1,4 @@
-package User;
+package com.cerveja.User;
 
 public enum UserType {
 	

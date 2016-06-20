@@ -1,9 +1,9 @@
-package Business;
+package com.cerveja.Business;
 
 import java.sql.*;
 import java.time.LocalDate;
 
-import User.MyConnection;
+import com.cerveja.User.*;
 
 import java.sql.SQLException;
 

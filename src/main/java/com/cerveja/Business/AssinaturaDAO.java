@@ -1,4 +1,4 @@
-package Business;
+package com.cerveja.Business;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 //import java.util.HashSet;
 //import java.util.Set;
 
-import User.MyConnection;
+import com.cerveja.User.*;
 
 public class AssinaturaDAO {
 	
@@ -131,7 +131,7 @@ public class AssinaturaDAO {
 			getea.setInt(1, assinaturaID);
 			ResultSet rs = getea.executeQuery();
 			while(rs.next()){
-				ea = EstadoAssinatura.valueOf(rs.getString("descricao"));
+				ea = EstadoAssinatura.valueOf(null, rs.getString("descricao"));
 				return ea;
 			}
 		} catch (SQLException e) {

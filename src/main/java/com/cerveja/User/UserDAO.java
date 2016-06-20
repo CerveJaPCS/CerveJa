@@ -1,12 +1,10 @@
-package User;
+package com.cerveja.User;
 
-import java.util.List;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserDAO {
@@ -22,12 +20,12 @@ public class UserDAO {
 		return instance;
 	}
 	
-	public List<String> getUser(int usuarioID) throws SQLException{
-		List<String> lst = new ArrayList<String>();
+	public Cliente getUserCliente(int usuarioID) throws SQLException{
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement getuser = null;
+		Cliente user = new Cliente();
 		try{
-			sql = "SELECT nome, email, cpf, rg, dataNascimento, endereco, telefone "
+			sql = "SELECT A.usuarioID, B.userInfoID, A.userTypeID, nome, email, senha, cpf, rg, dataNascimento, endereco, telefone "
 					+ "FROM cerveja.usuario A INNER JOIN cerveja.user_info B "
 					+ "ON A.userInfoID=B.userInfoID "
 					+ "WHERE usuarioID = ?";
@@ -35,27 +33,81 @@ public class UserDAO {
 			getuser.setInt(1, usuarioID);
 			ResultSet rs = getuser.executeQuery();
 			while(rs.next()){
-				lst.add(rs.getString("nome"));
-				lst.add(rs.getString("email"));
-				lst.add(rs.getString("cpf"));
-				lst.add(rs.getString("rg"));
 				LocalDate dob = rs.getDate("dataNascimento").toLocalDate();
-				//LocalDate dn = dob.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				lst.add(dob.toString());
-				lst.add(rs.getString("endereco"));
-				lst.add(rs.getString("telefone"));
-
+				UserInfo info = new UserInfo(rs.getString("nome"), rs.getString("cpf"), rs.getString("rg"), dob, 
+						rs.getString("endereco"), rs.getString("telefone"));
+				user.setEmail(rs.getString("email"));
+				user.setSenha(rs.getString("senha"));
+				user.setUserID(rs.getInt("usuarioID"));
+				user.setUserType(UserType.Cliente);
+				user.setInfo(info);
+				user.info.setUserInfoID(rs.getInt("userInfoID"));
 			}
-			return lst;
+			return user;
 		}
 		catch(SQLException e){
-			throw new SQLException("Erro ao buscar linha de teste.", e);
+			throw new SQLException("Erro ao buscar pelo usuário de ID " + usuarioID, e);
 		}finally {
-
 			if (getuser != null) {
 				getuser.close();
 			}
-
+			if (conn!= null) {
+				conn.close();
+			}
+		}
+	}
+	
+	public void updateUserCliente(int usuarioID, String endereco, String telefone) throws SQLException{
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement upuser = null;
+		Cliente user = new Cliente();
+		try{
+			user = getUserCliente(usuarioID);
+			sql = "UPDATE cerveja.user_info SET (endereco, telefone) "
+					+ "VALUES(?, ?) "
+					+ "WHERE userInfoID = ?";
+			upuser = conn.prepareStatement(sql);
+			upuser.setString(1, endereco);
+			upuser.setString(2, telefone);
+			upuser.setInt(3, user.info.getUserInfoID());
+			upuser.executeUpdate();
+		}
+		catch(SQLException e){
+			throw new SQLException("Erro ao buscar pelo usuário de ID " + usuarioID, e);
+		}finally {
+			if (upuser != null) {
+				upuser.close();
+			}
+			if (conn!= null) {
+				conn.close();
+			}
+		}
+	}
+	
+	public void mudarSenha(int usuarioID, String oldpass, String newpass) throws SQLException{
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement msenha = null;
+		Cliente user = new Cliente();
+		try{
+			user = getUserCliente(usuarioID);
+			if(user.getSenha().equals(makePasswordHash(oldpass))){
+				sql = "UPDATE cerveja.usuario SET senha = ? "
+						+ "WHERE usuarioID = ?";
+				msenha = conn.prepareStatement(sql);
+				msenha.setString(1, makePasswordHash(newpass));
+				msenha.setInt(2, usuarioID);
+				msenha.executeUpdate();
+			}
+			else{
+				System.out.println("Senha antiga inválida.");
+			}
+		}
+		catch(SQLException e){
+			throw new SQLException("Erro ao buscar pelo usuário de ID " + usuarioID, e);
+		}finally {
+			if (msenha != null) {
+				msenha.close();
+			}
 			if (conn!= null) {
 				conn.close();
 			}
@@ -313,5 +365,6 @@ public class UserDAO {
             throw new RuntimeException("MD5 is not available", e);
         }
     }
+	
 
 }

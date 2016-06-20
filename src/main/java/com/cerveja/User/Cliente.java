@@ -1,6 +1,8 @@
-package User;
+package com.cerveja.User;
 
-import Business.*;
+import java.sql.SQLException;
+
+import com.cerveja.Business.*;
 
 public class Cliente extends Usuario {
 	
@@ -19,7 +21,7 @@ public class Cliente extends Usuario {
 		return assinatura;
 	}
 
-	public void setAssinatura(Assinatura assinatura) {
+	public void setAssinatura(Assinatura assinatura) throws SQLException {
 		this.assinatura = assinatura;
 	}
 	

@@ -1,4 +1,4 @@
-package User;
+package com.cerveja.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

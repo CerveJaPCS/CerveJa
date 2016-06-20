@@ -1,10 +1,11 @@
-package User;
+package com.cerveja.User;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class UserInfo {
 	
+	private int userInfoID;
 	private String nome;
 	private String cpf;
 	private String rg;
@@ -89,6 +90,14 @@ public class UserInfo {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public int getUserInfoID() {
+		return userInfoID;
+	}
+
+	public void setUserInfoID(int userInfoID) {
+		this.userInfoID = userInfoID;
 	}
 	
 }

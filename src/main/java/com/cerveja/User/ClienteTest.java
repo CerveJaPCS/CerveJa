@@ -1,4 +1,4 @@
-package User;
+package com.cerveja.User;
 
 import static org.junit.Assert.*;
 

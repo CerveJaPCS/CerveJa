@@ -1,10 +1,10 @@
-package Business;
+package com.cerveja.Business;
 
 import java.util.Set;
 import java.time.LocalDate;
 import java.sql.SQLException;
 
-import Product.*;
+import com.cerveja.Product.*;
 
 public class Pacote {
 	

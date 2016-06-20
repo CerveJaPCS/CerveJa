@@ -1,4 +1,4 @@
-package Product;
+package com.cerveja.Product;
 
 public class Fornecedor {
 	

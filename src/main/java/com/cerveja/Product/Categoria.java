@@ -1,4 +1,4 @@
-package Product;
+package com.cerveja.Product;
 
 import java.util.Set;
 

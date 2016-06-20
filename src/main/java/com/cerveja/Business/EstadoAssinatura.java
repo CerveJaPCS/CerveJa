@@ -1,4 +1,4 @@
-package Business;
+package com.cerveja.Business;
 
 public enum EstadoAssinatura {
 	

@@ -1,12 +1,11 @@
-package Product;
+package com.cerveja.Product;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import User.MyConnection;
-import User.UserDAO;
+import com.cerveja.User.*;
 
 public class ListaPedidoDAO {
 	
