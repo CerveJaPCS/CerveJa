@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Random;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,8 +17,12 @@ public abstract class  Usuario {
 	private String email;
 	private String senha;
 	private Boolean ativo;
+	private String activationCode;
+	private int assinaturaID;
 	public UserInfo info;
 	private UserDAO userdao = UserDAO.getInstance();
+    private final ThreadLocal<Random> random = new ThreadLocal<Random>();
+
 	
 	public  Usuario() {
 		this(null, null, null, null);
@@ -45,12 +50,28 @@ public abstract class  Usuario {
 		this.info = info;
 	}
 	
-	public void updateUserCliente(int usuarioID, String endereco, String telefone) throws SQLException{
-		userdao.updateUserCliente(usuarioID, endereco, telefone);
+	public int getAssinaturaID() {
+		return assinaturaID;
+	}
+
+	public void setAssinaturaID(int assinaturaID) {
+		this.assinaturaID = assinaturaID;
 	}
 	
-	public void mudarSenha(int usuarioID, String oldpass, String newpass) throws SQLException{
-		userdao.mudarSenha(usuarioID, oldpass, newpass);
+	public String getActivationCode() {
+		return activationCode;
+	}
+
+	public void setActivationCode(String activationCode) {
+		this.activationCode = activationCode;
+	}
+
+	public void updateUserCliente(String email, String endereco, String telefone) throws SQLException{
+		userdao.updateUserCliente(email, endereco, telefone);
+	}
+	
+	public void mudarSenha(String email, String oldpass, String newpass) throws SQLException{
+		userdao.mudarSenha(email, oldpass, newpass);
 	}
 	
 	public boolean getUserAuth(String email, String senha) throws SQLException{
@@ -61,17 +82,17 @@ public abstract class  Usuario {
 		userdao.deleteUser(email, infoid);
 	}
 	
-	public Cliente getUserCliente(int userID) throws SQLException{
-		return userdao.getUserCliente(userID);
+	public Cliente getUserCliente(String email) throws SQLException{
+		return userdao.getUserCliente(email);
 	}
 	
 	public boolean addUser(){
 		try{
-			String cpf = this.info.getCPF();
-			int infoid = this.info.getUserInfoID(cpf);
+			int infoid = this.info.getUserInfoID();
 			if(infoid != -1){
 				if(userdao.insertUser(this.email, this.userType, this.senha, infoid)){
 					String activateCode = makeHashKey(this.email);
+					this.activationCode = activateCode;
 					sendMail(activateCode, this.email);
 					return true;
 				}
@@ -154,13 +175,23 @@ public abstract class  Usuario {
 	private String makeHashKey(String seed) {
 		String md5 = null;
         try {
+        	String word = seed + getRandom().toString();
             MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.update(seed.getBytes(), 0, seed.length());
+            digest.update(word.getBytes(), 0, word.length());
     		md5 = new BigInteger(1, digest.digest()).toString(16);
             return md5;
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("MD5 is not available", e);
         }
+    }
+	
+	private Random getRandom() {
+        Random result = random.get();
+        if (result == null) {
+            result = new Random();
+            random.set(result);
+        }
+        return result;
     }
 
 }

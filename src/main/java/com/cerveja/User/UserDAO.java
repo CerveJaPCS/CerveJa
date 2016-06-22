@@ -20,7 +20,7 @@ public class UserDAO {
 		return instance;
 	}
 	
-	public Cliente getUserCliente(int usuarioID) throws SQLException{
+	public Cliente getUserCliente(String email) throws SQLException{
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement getuser = null;
 		Cliente user = new Cliente();
@@ -28,9 +28,9 @@ public class UserDAO {
 			sql = "SELECT A.usuarioID, B.userInfoID, A.userTypeID, nome, email, senha, cpf, rg, dataNascimento, endereco, telefone "
 					+ "FROM cerveja.usuario A INNER JOIN cerveja.user_info B "
 					+ "ON A.userInfoID=B.userInfoID "
-					+ "WHERE usuarioID = ?";
+					+ "WHERE A.email = ?";
 			getuser = conn.prepareStatement(sql);
-			getuser.setInt(1, usuarioID);
+			getuser.setString(1, email);
 			ResultSet rs = getuser.executeQuery();
 			while(rs.next()){
 				LocalDate dob = rs.getDate("dataNascimento").toLocalDate();
@@ -46,7 +46,7 @@ public class UserDAO {
 			return user;
 		}
 		catch(SQLException e){
-			throw new SQLException("Erro ao buscar pelo usuário de ID " + usuarioID, e);
+			throw new SQLException("Erro ao buscar pelo usuário de email " +email, e);
 		}finally {
 			if (getuser != null) {
 				getuser.close();
@@ -57,12 +57,12 @@ public class UserDAO {
 		}
 	}
 	
-	public void updateUserCliente(int usuarioID, String endereco, String telefone) throws SQLException{
+	public void updateUserCliente(String email, String endereco, String telefone) throws SQLException{
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement upuser = null;
 		Cliente user = new Cliente();
 		try{
-			user = getUserCliente(usuarioID);
+			user = getUserCliente(email);
 			sql = "UPDATE cerveja.user_info SET (endereco, telefone) "
 					+ "VALUES(?, ?) "
 					+ "WHERE userInfoID = ?";
@@ -73,7 +73,7 @@ public class UserDAO {
 			upuser.executeUpdate();
 		}
 		catch(SQLException e){
-			throw new SQLException("Erro ao buscar pelo usuário de ID " + usuarioID, e);
+			throw new SQLException("Erro ao buscar pelo usuário de email " + email, e);
 		}finally {
 			if (upuser != null) {
 				upuser.close();
@@ -84,18 +84,18 @@ public class UserDAO {
 		}
 	}
 	
-	public void mudarSenha(int usuarioID, String oldpass, String newpass) throws SQLException{
+	public void mudarSenha(String email, String oldpass, String newpass) throws SQLException{
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement msenha = null;
 		Cliente user = new Cliente();
 		try{
-			user = getUserCliente(usuarioID);
+			user = getUserCliente(email);
 			if(user.getSenha().equals(makePasswordHash(oldpass))){
 				sql = "UPDATE cerveja.usuario SET senha = ? "
-						+ "WHERE usuarioID = ?";
+						+ "WHERE email = ?";
 				msenha = conn.prepareStatement(sql);
 				msenha.setString(1, makePasswordHash(newpass));
-				msenha.setInt(2, usuarioID);
+				msenha.setString(2, email);
 				msenha.executeUpdate();
 			}
 			else{
@@ -103,10 +103,69 @@ public class UserDAO {
 			}
 		}
 		catch(SQLException e){
-			throw new SQLException("Erro ao buscar pelo usuário de ID " + usuarioID, e);
+			throw new SQLException("Erro ao buscar pelo usuário de email " + email, e);
 		}finally {
 			if (msenha != null) {
 				msenha.close();
+			}
+			if (conn!= null) {
+				conn.close();
+			}
+		}
+	}
+	
+	public boolean getHashKey(String email, String hashKey) throws SQLException{
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement ghashk = null;
+		try{
+			sql = "SELECT hashkey "
+					+ "FROM cerveja.usuario "
+					+ "WHERE email = ?";
+			ghashk = conn.prepareStatement(sql);
+			ghashk.setString(1, email);
+			ResultSet rs = ghashk.executeQuery();
+			while(rs.next()){
+				if(rs.getString("hashkey").equals(hashKey)){
+					return true;
+				}
+			}
+			return false;
+		}
+		catch(SQLException e){
+			throw new SQLException("Erro ao buscar pelo usuário de email " + email, e);
+		}finally {
+			if (ghashk != null) {
+				ghashk.close();
+			}
+			if (conn!= null) {
+				conn.close();
+			}
+		}
+	}
+	
+	public void ativarConta(String email, String hashKey) throws SQLException{
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement aconta = null;
+		Cliente user = new Cliente();
+		try{
+			user = getUserCliente(email);
+			if(user != null && getHashKey(email, hashKey)){
+				sql = "UPDATE cerveja.usuario SET ativo = ? "
+						+ "WHERE email = ?";
+				aconta = conn.prepareStatement(sql);
+				aconta.setInt(1, 1);
+				aconta.setString(2, email);
+				aconta.executeUpdate();
+			}
+			else{
+				System.out.println("Código de ativação inválido.");
+			}
+		}
+		catch(SQLException e){
+			throw new SQLException("Erro ao buscar pelo usuário de email " + email, e);
+		}finally {
+			if (aconta != null) {
+				aconta.close();
 			}
 			if (conn!= null) {
 				conn.close();
@@ -293,25 +352,26 @@ public class UserDAO {
 			deluser.setString(1, email);
 			deluser.execute();
 			deluser.close();
-			
+			System.out.println("Usuario deletado com sucesso...");
+		}
+		catch(Exception e){
+			throw new SQLException("Erro ao deletar linha de teste.", e);
+		}
+		try{
 			sql = "DELETE FROM cerveja.user_info WHERE userInfoID = ?";
 			deluser = conn.prepareStatement(sql);
 			deluser.setInt(1, infoid);
 			deluser.execute();
-
-		}
-		catch(Exception e){
+			System.out.println("Informação de usuário deletado com sucesso...");
+		}catch(Exception e){
 			throw new SQLException("Erro ao deletar linha de teste.", e);
 		}finally {
-
 			if (deluser != null) {
 				deluser.close();
 			}
-
 			if (conn!= null) {
 				conn.close();
 			}
-
 		}
 	}	
 	

@@ -34,9 +34,10 @@ public class UserInfo {
 		}
 	}
 	
-	public int getUserInfoID(String cpf){
+	public int getUserInfoID(){
 		try{
-			return userdao.getUserInfoID(cpf);
+			this.userInfoID = userdao.getUserInfoID(this.cpf);
+			return this.userInfoID;
 		}
 		catch(SQLException e){
 			e.printStackTrace();
@@ -90,10 +91,6 @@ public class UserInfo {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-
-	public int getUserInfoID() {
-		return userInfoID;
 	}
 
 	public void setUserInfoID(int userInfoID) {
