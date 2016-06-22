@@ -108,7 +108,8 @@ public abstract class  Usuario {
 		return false;
 	}
 	
-	public void ativar(){
+	public void ativar() throws SQLException{
+		userdao.ativarConta(this.email, this.activationCode);
 		this.ativo = true;
 	}
 	

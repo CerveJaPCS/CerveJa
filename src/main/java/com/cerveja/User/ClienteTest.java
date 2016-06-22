@@ -2,6 +2,7 @@ package com.cerveja.User;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -21,7 +22,7 @@ public class ClienteTest {
 
 	
 	@Test
-	public void testAtivar() {
+	public void testAtivar() throws SQLException {
 		teste.ativar();
 		assertTrue(teste.getAtivo());
 	}
