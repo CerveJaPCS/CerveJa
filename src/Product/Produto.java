@@ -13,8 +13,50 @@ public class Produto {
 	Heineken,
 	Budweiser,
 	StellaArtois,
+	Itaipava,
+	Skol,
+	Brahma,
+	Guinness,
+	Faxe,
+	Devassa,
+	Sapporo,
+	Corona
 	}
 	
+	public enum Nacionalidade{
+		Belga,
+		Alemã,
+		Brasileira,
+		Americana,
+		Inglesa,
+		Irlandesa,
+		Indiana,
+		Polonesa,
+		Tcheca,
+		Japonesa,
+		Dinamarquesa
+	}
+	
+	public enum Tipo{
+		Ale,
+		Lager
+	}
+	
+	public enum Subtipo{
+		Pale,
+		Dark,
+		Bock,
+		Vienna,
+		Marzen,
+		IPA,
+		Stout,
+		Porter,
+		Weissbier,
+		Strong,
+		EnglishPale,
+		American,
+		Red
+	}
 	
 	private int productId;
 	private String nomeProduto;

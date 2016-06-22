@@ -23,26 +23,25 @@ public class ProdutoDAO {
 		return instance;
 	}
 	
-	public void insertProduto(String nomeProduto, double price, int volume,	
-			boolean disponibilidade, int estoque) throws SQLException {
+	public void insertProduto(String nome, double preco, int volume,	
+			boolean disponibilidade, int estoque, String descricao, int subTipoID, int nacionalidadeID, int marcaID, int volumeID) throws SQLException {
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement insertproduto = null;
 		try{
 		
-			if(getProductID(nomeProduto) == -1){	// ??????????
-				sql = "INSERT INTO cerveja.produto (nomeProduto, price, volume, "
-						+ "disponibilidade, estoque) VALUES (?,?,?,?,?)";
+				sql = "INSERT INTO `cerveja`.`produto` (`preco`, `disponibilidade`, `nome`, `descricao`, `estoque`, `subTipoID`, `nacionalidadeID`, `marcaID`, `volumeID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 				insertproduto = conn.prepareStatement(sql);
-				insertproduto.setString(1, nomeProduto);
-				insertproduto.setDouble(2, price);
-				insertproduto.setInt(3, volume);
-				insertproduto.setBoolean(4, disponibilidade);
+				insertproduto.setDouble(1, preco);
+				insertproduto.setBoolean(2, disponibilidade);
+				insertproduto.setString(3, nome);
+				insertproduto.setString(4, descricao);
 				insertproduto.setInt(5, estoque);
+				insertproduto.setInt(6, subTipoID);
+				insertproduto.setInt(7, nacionalidadeID);
+				insertproduto.setInt(8, marcaID);
+				insertproduto.setInt(9, volumeID);
+
 				insertproduto.executeUpdate();
-			}
-			else{
-				System.out.println("Produto já cadastrado.");
-			}
 		}
 		catch(Exception e){
 			throw new SQLException("Erro ao inserir linha de teste.", e);
@@ -64,7 +63,7 @@ public class ProdutoDAO {
 		PreparedStatement getproduct = null;
 		int infoid = -1;
 		try{
-			sql = "SELECT productID FROM cerveja.produto WHERE nomeProduto = ?"; //?????
+			sql = "SELECT productID FROM cerveja.produto WHERE nome = ?";
 			getproduct = conn.prepareStatement(sql);
 			getproduct.setString(1, nomeProduto);
 			ResultSet rs = getproduct.executeQuery();
