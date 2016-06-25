@@ -68,7 +68,6 @@ public class ProdutoDAO {
 			getproduct.setInt(1, produtoID);
 			ResultSet rs = getproduct.executeQuery();
 			while(rs.next()){
-				System.out.println(rs.getString(1));
 				String nomeProduto = rs.getString(1);
 				int price = rs.getInt(2);
 				int volume = rs.getInt(3);

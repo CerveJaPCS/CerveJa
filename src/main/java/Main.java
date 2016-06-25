@@ -11,6 +11,7 @@ import java.util.Set;
 import com.cerveja.Business.Assinatura;
 import com.cerveja.Business.EstadoAssinatura;
 import com.cerveja.Business.Pacote;
+import com.cerveja.Business.PacoteDAO;
 import com.cerveja.Product.Produto;
 import com.cerveja.Product.ProdutoDAO;
 import com.cerveja.User.Cliente;
@@ -34,35 +35,49 @@ public class Main {
 		
 		Cliente user = teste.getUserCliente("teste5@mail.com");
 		
+		
+		System.out.println(PacoteDAO.getInstance().getPacote(15).getPacoteID());
+		System.out.println(PacoteDAO.getInstance().getPacote(15).getCreateDate());
+		System.out.println(PacoteDAO.getInstance().getPacote(15).getPeriodicidade());
+		System.out.println(PacoteDAO.getInstance().getPacote(15).getPrice());
+		System.out.println(PacoteDAO.getInstance().getPacote(15).getQuantidade());
+		System.out.println(PacoteDAO.getInstance().getPacote(15).getAssinatura().getDiaDebito());
+		Set<Produto> prods = PacoteDAO.getInstance().getPacote(15).getProdutos();
+		for(Produto p : prods){
+			System.out.println(p.getNomeProduto());
+		}
 //		System.out.println(user.info.getNome());
 		
 //		TesteInfo.addUserInfo();
 //		teste.addUser();
 //		int diaDebito = 23;
-		Assinatura assinatura = new Assinatura();
-		assinatura.setAssinaturaID(16);
+
 //		assinatura.addAssinatura(diaDebito);
 //		teste.setAssinatura(assinatura);
 //		teste.addAssinatura(teste.getAssinatura().getAssinaturaID());
 //		
 //		EstadoAssinatura ea = EstadoAssinatura.AguardandoPagamento;
 //		teste.getAssinatura().setEstadoAssinatura(ea);
-		user.setAssinatura(assinatura);
-		user.getAssinatura();
+
 //		System.out.println(user.getAssinatura().getDiaDebito());
 //		System.out.println(assinatura.getDiaDebito());
 		
-		Set<Produto> produtos1 = new HashSet<Produto>();
-		produtos1.add(ProdutoDAO.getInstance().getProduto(5));
-		produtos1.add(ProdutoDAO.getInstance().getProduto(6));
+//		Assinatura assinatura = new Assinatura();
+//		assinatura.setAssinaturaID(16);
+//		user.setAssinatura(assinatura);
+//		user.getAssinatura();
+//		Set<Produto> produtos1 = new HashSet<Produto>();
+//		produtos1.add(ProdutoDAO.getInstance().getProduto(5));
+//		produtos1.add(ProdutoDAO.getInstance().getProduto(6));
+		
 //		for(Produto p : produtos1){
 //			System.out.println(p.getProductId());
 //			System.out.println(p.getNomeProduto());
 //		}
 //		
 		
-		Pacote pacote1 = new Pacote(produtos1, LocalDate.now(), "semanal", true, user.getAssinatura());
-		pacote1.addPacote();
+//		Pacote pacote1 = new Pacote(produtos1, LocalDate.now(), "semanal", true, user.getAssinatura());
+//		pacote1.addPacote();
 		
 //		UserDAO userdao = UserDAO.getInstance();
 //		userdao.addAssinatura("ccc@teste.com", 6);

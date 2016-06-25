@@ -103,7 +103,7 @@ public class Assinatura {
 		this.pacotes = pacotes;
 	}
 	
-	public int getValorTotal(){
+	public int getValorTotal() throws SQLException{
 		int valorTotal = 0;
 		if(!pacotes.isEmpty()){
 			for(Pacote p : pacotes){

@@ -57,14 +57,14 @@ public class Pacote {
 		this.quantidade = quantidade;
 	}
 
-	public int getPrice(){
-		int valorPacote = 0;
-		if(!this.produtos.isEmpty()){
-			for(Produto p : produtos){
-				valorPacote += p.getPrice();
-			}
-		}
-		return valorPacote;
+	public int getPrice() throws SQLException{
+//		int valorPacote = 0;
+//		if(!this.produtos.isEmpty()){
+//			for(Produto p : produtos){
+//				valorPacote += p.getPrice();
+//			}
+//		}
+		return dao.getPrice(this.pacoteID);
 	}
 	
 	public int getPacoteID() {
