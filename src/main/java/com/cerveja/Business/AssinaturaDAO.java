@@ -7,6 +7,7 @@ import java.sql.SQLException;
 //import java.time.LocalDate;
 //import java.util.HashSet;
 //import java.util.Set;
+import java.sql.Types;
 
 import com.cerveja.User.*;
 
@@ -181,44 +182,38 @@ public class AssinaturaDAO {
 		return ea;
 	}
 	
-//	public Set<Pacote> getPacotes(int assinaturaID) throws SQLException{
-//	    Set<Pacote> temp = new HashSet<Pacote>();
-//		Connection conn = MyConnection.getConnection();
-//		PreparedStatement getpack = null;
-//		 
-//		try {
-//			sql = "SELECT A.assinaturaID, pacoteID, periodicidade, dataCriacao, quantidade, validade "
-//					+ "FROM cerveja.assinatura A, cerveja.pacote B "
-//					+ "WHERE A.assinaturaID = ? AND A.assinaturaID = B.assinaturaID";
-//			getpack = conn.prepareStatement(sql);
-//			getpack.setInt(1, assinaturaID);
-//			ResultSet rs = getpack.executeQuery();
-//			while(rs.next()){
-//				Pacote p = new Pacote();
-//				rs.getInt("assinaturaID");
-//				LocalDate dc = rs.getDate("dataCriacao").toLocalDate();
-//				p.setPacoteID(rs.getInt("pacoteID"));
-//				p.setPeriodicidade(rs.getString("periodicidade"));					
-//				p.setValidity(rs.getBoolean("validade"));
-//				p.setCreateDate(dc);				
-//				p.setQuantidade(rs.getInt("quantidade"));
-//				temp.add(p);
-//			}
-//			return temp;
-//			
-//		} catch (SQLException e) {
-//			// TODO: handle exception
-//		}finally {
-//			if (getpack != null) {
-//				getpack.close();
-//			}
-//
-//			if (conn!= null) {
-//				conn.close();
-//			}
-//		}
-//		return temp;
-//	}
+	public void deleteAssinatura(String email, int assinaturaID) throws SQLException {
+        Connection conn = MyConnection.getConnection();
+		PreparedStatement stmnt = null;
+		PreparedStatement stmnt2 = null;
+
+		try{
+			sql = "DELETE FROM cerveja.assinatura WHERE assinaturaID = ?";
+			stmnt = conn.prepareStatement(sql);
+			stmnt.setInt(1,assinaturaID);
+			stmnt.execute();
+		}
+		catch(Exception e){
+			throw new SQLException("Erro ao deletar assinatura " + assinaturaID, e);
+		}
+        finally {
+			if (stmnt != null) stmnt.close();
+		}
+		try{
+			sql = "UPDATE cerveja.usuario SET cerveja.usuario.assinaturaID = ?  WHERE email = ?";
+			stmnt2 = conn.prepareStatement(sql);
+			stmnt2.setNull(1, Types.INTEGER);;
+			stmnt2.setString(2, email);
+			stmnt2.execute();
+		}
+		catch(Exception e){
+			throw new SQLException("Erro ao deletar assinatura " + assinaturaID, e);
+		}
+        finally {
+			if (stmnt != null) stmnt.close();
+			if (conn!= null) conn.close();
+		}
+    }
 	
 
 }

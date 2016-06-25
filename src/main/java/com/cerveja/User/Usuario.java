@@ -24,10 +24,6 @@ public abstract class  Usuario {
     private final ThreadLocal<Random> random = new ThreadLocal<Random>();
 
 	
-//	public  Usuario() {
-//		this(null, null, null, null);
-//	}
-//	
 	public Usuario(UserType userType, String email, String senha, UserInfo info){
 				
 		this.userType = userType;

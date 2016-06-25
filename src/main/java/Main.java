@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import com.cerveja.Business.Assinatura;
+import com.cerveja.Business.AssinaturaDAO;
 import com.cerveja.Business.EstadoAssinatura;
 import com.cerveja.Business.Pacote;
 import com.cerveja.Business.PacoteDAO;
@@ -33,38 +34,43 @@ public class Main {
 	    UserType tipo = UserType.Cliente;	    
 		Cliente teste = new Cliente(tipo, "teste5@mail.com", "senha123", TesteInfo);
 		
-		Cliente user = teste.getUserCliente("teste5@mail.com");
 		
-		
-		System.out.println(PacoteDAO.getInstance().getPacote(17).getPacoteID());
-		System.out.println(PacoteDAO.getInstance().getPacote(17).getCreateDate());
-		System.out.println(PacoteDAO.getInstance().getPacote(17).getPeriodicidade());
-		System.out.println(PacoteDAO.getInstance().getPacote(17).getPrice());
-		System.out.println(PacoteDAO.getInstance().getPacote(17).getQuantidade());
-		System.out.println(PacoteDAO.getInstance().getPacote(17).getAssinatura().getDiaDebito());
-		Set<Produto> prods = PacoteDAO.getInstance().getPacote(17).getProdutos();
+		/** Mostrar detalhes do pacote **/
+		System.out.println(PacoteDAO.getInstance().getPacote(18).getPacoteID());
+		System.out.println(PacoteDAO.getInstance().getPacote(18).getCreateDate());
+		System.out.println(PacoteDAO.getInstance().getPacote(18).getPeriodicidade());
+		System.out.println(PacoteDAO.getInstance().getPacote(18).getPrice());
+		System.out.println(PacoteDAO.getInstance().getPacote(18).getQuantidade());
+		System.out.println(PacoteDAO.getInstance().getPacote(18).getAssinatura().getDiaDebito());
+		Set<Produto> prods = PacoteDAO.getInstance().getPacote(18).getProdutos();
 		for(Produto p : prods){
 			System.out.println(p.getNomeProduto());
 			System.out.println(p.getQntPacote());
 		}
-		System.out.println(user.info.getNome());
+		
+//		AssinaturaDAO.getInstance().deleteAssinatura("teste5@mail.com", 16);
+//		for(int i=11; i<17; i++){
+//			PacoteDAO.getInstance().deletePacote(i);
+//		}
 		
 //		TesteInfo.addUserInfo();
 //		teste.addUser();
-//		int diaDebito = 23;
 
+//		/** Adicionar assinatura e pacotes **/
+//		int diaDebito = 23;
+//
+//		Assinatura assinatura = new Assinatura();
 //		assinatura.addAssinatura(diaDebito);
 //		teste.setAssinatura(assinatura);
 //		teste.addAssinatura(teste.getAssinatura().getAssinaturaID());
 //		
 //		EstadoAssinatura ea = EstadoAssinatura.AguardandoPagamento;
 //		teste.getAssinatura().setEstadoAssinatura(ea);
-
-//		System.out.println(user.getAssinatura().getDiaDebito());
-//		System.out.println(assinatura.getDiaDebito());
-		
-//		Assinatura assinatura = new Assinatura();
-//		assinatura.setAssinaturaID(16);
+//
+//		Cliente user = teste.getUserCliente("teste5@mail.com");
+//		
+////		Assinatura assinatura = new Assinatura();
+////		assinatura.setAssinaturaID(16);
 //		user.setAssinatura(assinatura);
 //		user.getAssinatura();
 //		Set<Produto> produtos1 = new HashSet<Produto>();
@@ -74,16 +80,9 @@ public class Main {
 //		p2.setQntPacote(2);
 //		produtos1.add(p1);
 //		produtos1.add(p2);
-		
-//		for(Produto p : produtos1){
-//			System.out.println(p.getProductId());
-//			System.out.println(p.getNomeProduto());
-//		}
-//		
-//		
 //		Pacote pacote1 = new Pacote(produtos1, LocalDate.now(), "semanal", true, user.getAssinatura());
 //		pacote1.addPacote();
-		
+	
 //		UserDAO userdao = UserDAO.getInstance();
 //		userdao.addAssinatura("ccc@teste.com", 6);
 //		System.out.println(c.getEmail());
