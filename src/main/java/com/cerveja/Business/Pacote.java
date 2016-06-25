@@ -58,12 +58,6 @@ public class Pacote {
 	}
 
 	public int getPrice() throws SQLException{
-//		int valorPacote = 0;
-//		if(!this.produtos.isEmpty()){
-//			for(Produto p : produtos){
-//				valorPacote += p.getPrice();
-//			}
-//		}
 		return dao.getPrice(this.pacoteID);
 	}
 	

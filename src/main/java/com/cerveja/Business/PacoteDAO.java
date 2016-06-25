@@ -62,10 +62,11 @@ public class PacoteDAO {
         for(Produto p : produtos){
             PreparedStatement stmnt2 = null;
             try{
-                sql = "INSERT INTO cerveja.pacote_produto (pacoteID, produtoID) VALUES (?, ?)";
+                sql = "INSERT INTO cerveja.pacote_produto (pacoteID, produtoID, qntProduto) VALUES (?, ?, ?)";
                 stmnt2 = conn.prepareStatement(sql);
                 stmnt2.setInt(1, pacoteID);
                 stmnt2.setInt(2, p.getProductId());
+                stmnt2.setInt(3, p.getQntPacote());
                 stmnt2.executeUpdate();
             }
             catch(Exception e){
@@ -86,7 +87,7 @@ public class PacoteDAO {
 			
 			sql = "SELECT A.pacoteID, A.assinaturaID, B.pacoteProdutoID, C.produtoID, "
 					+ "C.nome, C.preco, C.volumeID, C.disponibilidade, C.estoque, "
-					+ "periodicidade, dataCriacao, validade, quantidade "
+					+ "periodicidade, dataCriacao, validade, quantidade, qntProduto "
 					+ "FROM cerveja.pacote A INNER JOIN cerveja.pacote_produto B INNER JOIN cerveja.produto C "
 					+ "ON A.pacoteID = B.pacoteID AND B.produtoID = C.produtoID "
 					+ "WHERE A.pacoteID = ?";
@@ -105,6 +106,7 @@ public class PacoteDAO {
 				LocalDate data = rs.getDate("dataCriacao").toLocalDate();
 				dc = data;
 				Produto p = new Produto(rs.getInt("produtoID"), rs.getString("nome"), rs.getInt("preco"), rs.getInt("volumeID"), rs.getBoolean("disponibilidade"), rs.getInt("estoque"));
+				p.setQntPacote(rs.getInt("qntProduto"));
 				produtos.add(p);
 				Pacote pacote = new Pacote(produtos, dc, periodicidade, validade, new Assinatura().getAssinatura(assinaturaID));
 				pacote.setPacoteID(pacoteID);
@@ -132,7 +134,7 @@ public class PacoteDAO {
 			
 			sql = "SELECT A.pacoteID, A.assinaturaID, B.pacoteProdutoID, C.produtoID, "
 					+ "C.nome, C.preco, C.volumeID, C.disponibilidade, C.estoque, "
-					+ "periodicidade, dataCriacao, validade, quantidade "
+					+ "periodicidade, dataCriacao, validade, qntProduto "
 					+ "FROM cerveja.pacote A INNER JOIN cerveja.pacote_produto B INNER JOIN cerveja.produto C "
 					+ "ON A.pacoteID = B.pacoteID AND B.produtoID = C.produtoID "
 					+ "WHERE A.pacoteID = ?";
@@ -140,7 +142,7 @@ public class PacoteDAO {
 			getprice.setInt(1, pacoteID);
 			ResultSet rs = getprice.executeQuery();
 			while(rs.next()){
-				price += rs.getInt("preco");
+				price += rs.getInt("preco")*rs.getInt("qntProduto");
 			}
 			return price;
 		}

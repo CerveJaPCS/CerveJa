@@ -8,6 +8,7 @@ public class Produto {
 	private int volume;
 	private boolean disponibilidade;
 	private int estoque;
+	private int qntPacote;
 	private ListaPedido pedido;
 	private ProdutoDAO dao = ProdutoDAO.getInstance();
 	
@@ -75,6 +76,14 @@ public class Produto {
 
 	public void setDisponibilidade(boolean disponibilidade) {
 		this.disponibilidade = disponibilidade;
+	}
+
+	public int getQntPacote() {
+		return qntPacote;
+	}
+
+	public void setQntPacote(int qntPacote) {
+		this.qntPacote = qntPacote;
 	}
 	
 	
