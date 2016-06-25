@@ -27,7 +27,7 @@ public class AssinaturaDAO {
 		Connection conn = MyConnection.getConnection();
 		PreparedStatement upstate = null;
 		try{
-			sql = "UPDATE cerveja.assinatura SET cerveja.assinatura.estadoAssinaturaID = ? WHERE cerveja.assinaturaID = ? "; 
+			sql = "UPDATE cerveja.assinatura SET cerveja.assinatura.estadoAssinaturaID = ? WHERE cerveja.assinatura.assinaturaID = ? "; 
 			upstate = conn.prepareStatement(sql);
 			upstate.setInt(1, ea.ordinal() + 1);
 			upstate.setInt(2, assinaturaID);
@@ -75,6 +75,7 @@ public class AssinaturaDAO {
 			ResultSet rs = getid.executeQuery();
 			while(rs.next()){
 				assinaturaid = rs.getInt("lastID");
+				return assinaturaid;
 			}
 			return assinaturaid;
 		}catch (SQLException e){
@@ -88,6 +89,38 @@ public class AssinaturaDAO {
 				conn.close();
 			}
 		}
+	}
+	
+	public Assinatura getAssinatura(int assinaturaID) throws SQLException{
+		Connection conn = MyConnection.getConnection();
+		PreparedStatement geta = null;
+		Assinatura a = new Assinatura();
+		try {
+			sql = "SELECT assinaturaID, descricao AS estado , diaDebito "
+					+ "FROM cerveja.assinatura A INNER JOIN cerveja.estados_assinaturas B "
+					+ "WHERE A.assinaturaID = ? AND A.estadoAssinaturaID = B.estadoAssinaturaID";
+			
+			geta = conn.prepareStatement(sql);
+			geta.setInt(1, assinaturaID);
+			ResultSet rs = geta.executeQuery();
+			while(rs.next()){
+				a.setDiaDebito(rs.getInt("diaDebito"));
+				a.setEstadoAssinatura(EstadoAssinatura.valueOf(rs.getString("estado")));
+				a.setAssinaturaID(assinaturaID);
+				return a;
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}finally {
+			if (geta != null) {
+				geta.close();
+			}
+
+			if (conn!= null) {
+				conn.close();
+			}
+		}
+		return a;
 	}
 	
 	public int getDiaDebito(int assinaturaID) throws SQLException{

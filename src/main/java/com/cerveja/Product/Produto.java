@@ -4,13 +4,14 @@ public class Produto {
 	
 	private int productId;
 	private String nomeProduto;
-	private double price;
+	private int price;
 	private int volume;
 	private boolean disponibilidade;
 	private int estoque;
 	private ListaPedido pedido;
+	private ProdutoDAO dao = ProdutoDAO.getInstance();
 	
-	public Produto(int productId, String nomeProduto, double price,
+	public Produto(int productId, String nomeProduto, int price,
 			int volume, boolean disponibilidade, int estoque) {
 		this.productId = productId;
 		this.nomeProduto = nomeProduto;
@@ -18,10 +19,6 @@ public class Produto {
 		this.volume = volume;
 		this.disponibilidade = disponibilidade;
 		this.estoque = estoque;
-	}
-	
-	public int getID(){
-		return 0;
 	}
 	
 	public ListaPedido getPedido() {
@@ -56,11 +53,11 @@ public class Produto {
 		this.nomeProduto = nomeProduto;
 	}
 
-	public double getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 

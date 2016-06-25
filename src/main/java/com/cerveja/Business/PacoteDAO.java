@@ -59,18 +59,21 @@ public class PacoteDAO {
             if(rsPacoteID != null) rsPacoteID.close();
         }
         
-        Produto[] produtosArr = produtos.toArray(new Produto[produtos.size()]);
-        for(int i = 0; i < produtos.size(); i++){
+//        Produto[] produtosArr = produtos.toArray(new Produto[produtos.size()]);
+//        for(int i = 0; i < produtos.size(); i++){
+        for(Produto p : produtos){
             PreparedStatement stmnt2 = null;
             try{
                 sql = "INSERT INTO cerveja.pacote_produto (pacoteID, produtoID) VALUES (?, ?)";
                 stmnt2 = conn.prepareStatement(sql);
                 stmnt2.setInt(1, pacoteID);
-                stmnt2.setInt(2, produtosArr[i].getID());
+//                System.out.println(produtosArr[i].getID());
+//                stmnt2.setInt(2, produtosArr[i].getID());
+                stmnt2.setInt(2, p.getProductId());
                 stmnt2.executeUpdate();
             }
             catch(Exception e){
-                throw new SQLException("Erro ao inserir pacote_produto " + i, e);
+                throw new SQLException("Erro ao inserir pacote_produto " + p.getProductId(), e);
             }
             finally{
                 if(stmnt2 != null) stmnt2.close();

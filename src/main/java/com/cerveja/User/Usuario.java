@@ -24,10 +24,10 @@ public abstract class  Usuario {
     private final ThreadLocal<Random> random = new ThreadLocal<Random>();
 
 	
-	public  Usuario() {
-		this(null, null, null, null);
-	}
-	
+//	public  Usuario() {
+//		this(null, null, null, null);
+//	}
+//	
 	public Usuario(UserType userType, String email, String senha, UserInfo info){
 				
 		this.userType = userType;
@@ -50,9 +50,6 @@ public abstract class  Usuario {
 		this.info = info;
 	}
 	
-	public int getAssinaturaID() {
-		return assinaturaID;
-	}
 
 	public void setAssinaturaID(int assinaturaID) {
 		this.assinaturaID = assinaturaID;
@@ -93,7 +90,7 @@ public abstract class  Usuario {
 				if(userdao.insertUser(this.email, this.userType, this.senha, infoid)){
 					String activateCode = makeHashKey(this.email);
 					this.activationCode = activateCode;
-					sendMail(activateCode, this.email);
+					//sendMail(activateCode, this.email);
 					return true;
 				}
 			}

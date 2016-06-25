@@ -13,6 +13,8 @@ public class Assinatura {
 	private EstadoAssinatura estadoAssinatura;
 	private AssinaturaDAO assinaturaDAO = AssinaturaDAO.getInstance();
 
+	
+	
 	public void atualizarEstado() throws SQLException{
 		if(estadoAssinatura == EstadoAssinatura.Inativa) return;
 		LocalDate dataDebito;
@@ -43,6 +45,13 @@ public class Assinatura {
 		assinaturaDAO.atualizaEstado(this.assinaturaID, EstadoAssinatura.Paga);
 	}
 	
+	public Assinatura getAssinatura(int id) throws SQLException{
+		return assinaturaDAO.getAssinatura(id);
+	}
+	
+	public void setAssinaturaID(int id) {
+		this.assinaturaID = id;
+	}
 	
 	public int getAssinaturaID() {
 		return assinaturaID;

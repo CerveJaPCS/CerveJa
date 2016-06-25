@@ -28,7 +28,7 @@ public class Pacote {
 	
 	public boolean addPacote(){
 		try{
-			pacoteID = dao.insertPacote(periodicidade, createDate, assinatura, validity, quantidade, produtos);
+			this.pacoteID = dao.insertPacote(periodicidade, createDate, assinatura, validity, quantidade, produtos);
 			return true;
 		}
 		catch(SQLException e){
